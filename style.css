@@ -1,0 +1,907 @@
+/*
+  =====================================================
+  CARLO TEJEROS — PORTFOLIO STYLESHEET
+  =====================================================
+
+  LEARNING NOTES:
+  ---------------
+  This file controls ALL visual styling for the portfolio.
+
+  HOW CSS VARIABLES WORK:
+  -----------------------
+  We define colors once in :root { } and reuse them everywhere.
+  This way, changing ONE variable updates the ENTIRE site.
+  For dark mode, we override these variables under [data-theme="dark"].
+
+  HOW RESPONSIVE DESIGN WORKS:
+  ----------------------------
+  We design for mobile FIRST (small screens), then use
+  @media (min-width: 768px) { } to add styles for bigger screens.
+  This is called "mobile-first" design.
+
+  CSS ORGANIZATION:
+  -----------------
+  1. Variables (colors, fonts, spacing)
+  2. Reset & base styles
+  3. Layout (nav, sections, containers)
+  4. Components (buttons, cards, badges)
+  5. Animations
+  6. Responsive breakpoints
+  =====================================================
+*/
+
+
+/* ==============================================
+   1. CSS VARIABLES — THE COLOR SYSTEM
+   ==============================================
+
+   LEARNING NOTE:
+   :root means "the whole page". Variables defined here
+   are available EVERYWHERE in the CSS using var(--name).
+
+   Example: color: var(--text) will use #1a1a2e in light mode
+   and #e8e8f0 in dark mode — automatically!
+*/
+:root {
+  /* Colors — Light Mode */
+  --bg:        #fafaf9;
+  --bg2:       #f0efed;
+  --surface:   #ffffff;
+  --surface2:  #f5f5f3;
+  --border:    #e2e0dc;
+  --text:      #1a1a1f;
+  --text2:     #52525a;
+  --text3:     #8a8a96;
+  --accent:    #6c5ce7;          /* Purple — your brand color */
+  --accent-bg: rgba(108,92,231,.08);
+  --accent2:   #00b894;          /* Green — for "live" badges */
+  --glow:      rgba(108,92,231,.15);
+
+  /* Typography */
+  --font:      'DM Sans', 'Inter', -apple-system, sans-serif;
+  --font-mono: 'DM Mono', 'Fira Code', monospace;
+
+  /* Spacing & Radius */
+  --radius:    14px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+
+  /* Transitions — how fast things animate */
+  --ease:      0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*
+  LEARNING NOTE: Dark mode override
+  When <body data-theme="dark">, these variables REPLACE the ones above.
+  Every element using var(--bg) will now get #0c0c10 instead of #fafaf9.
+  This is the magic of CSS variables — one attribute change, whole site updates!
+*/
+[data-theme="dark"] {
+  --bg:        #0c0c10;
+  --bg2:       #16161c;
+  --surface:   #1c1c24;
+  --surface2:  #24242e;
+  --border:    #2a2a36;
+  --text:      #e8e8f0;
+  --text2:     #a0a0b0;
+  --text3:     #6a6a7a;
+  --accent:    #a78bfa;
+  --accent-bg: rgba(167,139,250,.1);
+  --accent2:   #34d399;
+  --glow:      rgba(167,139,250,.12);
+}
+
+
+/* ==============================================
+   2. RESET & BASE STYLES
+   ==============================================
+
+   LEARNING NOTE:
+   Every browser has default styles (margins, padding, fonts).
+   We "reset" them so our site looks the same everywhere.
+*/
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;       /* Makes width include padding+border */
+}
+
+html {
+  scroll-behavior: smooth;       /* Smooth scrolling when clicking nav links */
+  scroll-padding-top: 80px;      /* Offset for fixed navbar */
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;              /* Space between lines of text */
+  transition: background var(--ease), color var(--ease);
+  -webkit-font-smoothing: antialiased;  /* Smoother fonts on Mac */
+  overflow-x: hidden;            /* Prevent horizontal scroll */
+}
+
+a {
+  color: inherit;                /* Links use parent's color */
+  text-decoration: none;         /* No underline */
+}
+
+img { max-width: 100%; }
+
+
+/* ==============================================
+   3. LAYOUT
+   ============================================== */
+
+/*
+  LEARNING NOTE: Container
+  Centers content and sets a max-width so text doesn't
+  stretch across super-wide screens. Padding adds space on mobile.
+*/
+.container {
+  max-width: 1100px;
+  margin: 0 auto;               /* auto = center horizontally */
+  padding: 0 24px;
+}
+
+
+/* ── NAVIGATION ─────────────────────────────── */
+
+/*
+  LEARNING NOTE: Fixed navigation
+  position: fixed keeps the nav visible while scrolling.
+  backdrop-filter: blur gives the frosted glass effect.
+  z-index: 100 ensures it stays on top of other elements.
+*/
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: transparent;
+  transition: background var(--ease), box-shadow var(--ease);
+}
+
+/* When user scrolls down, JS adds this class for solid background */
+.nav.scrolled {
+  background: var(--bg);
+  box-shadow: 0 1px 0 var(--border);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="dark"] .nav.scrolled {
+  background: rgba(12,12,16,0.9);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 70px;
+  display: flex;                 /* Flexbox: items in a row */
+  align-items: center;           /* Vertically centered */
+  justify-content: space-between; /* Space between brand, links, actions */
+}
+
+/* Brand / Logo */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.brand-dot {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.brand-accent { color: var(--accent); }
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text2);
+  position: relative;
+  transition: color var(--ease);
+}
+
+.nav-link:hover { color: var(--accent); }
+
+/*
+  LEARNING NOTE: Animated underline
+  This creates a line under nav links on hover.
+  It starts at width:0 (invisible) and grows to 100% on hover.
+  transform-origin: left means it grows from left to right.
+*/
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width var(--ease);
+}
+
+.nav-link:hover::after { width: 100%; }
+
+/* Nav actions (theme toggle + burger) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-btn {
+  width: 40px; height: 40px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--text);
+  transition: all var(--ease);
+}
+
+.theme-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/*
+  LEARNING NOTE: Hamburger menu button
+  Three <span> lines styled as a burger icon.
+  Hidden on desktop, shown on mobile via @media query.
+*/
+.burger {
+  display: none;                 /* Hidden on desktop */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.burger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all var(--ease);
+}
+
+/* Burger animation when menu is open */
+.burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+
+/* ── SECTIONS ───────────────────────────────── */
+
+.section {
+  padding: 100px 0;
+}
+
+.section-alt {
+  background: var(--bg2);
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);   /* Responsive font size */
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  margin-bottom: 48px;
+}
+
+/*
+  LEARNING NOTE: clamp(min, preferred, max)
+  This CSS function creates responsive font sizes:
+  - Never smaller than 1.8rem
+  - Tries to be 4% of viewport width
+  - Never bigger than 2.8rem
+  No media queries needed!
+*/
+
+.highlight {
+  color: var(--accent);
+}
+
+
+/* ==============================================
+   4. COMPONENTS
+   ============================================== */
+
+/* ── HERO ───────────────────────────────────── */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0 80px;
+}
+
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent);
+  border-radius: 50px;
+  padding: 6px 16px;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 20px;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+/* Stats */
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text3);
+  font-weight: 500;
+}
+
+/*
+  LEARNING NOTE: Decorative glow
+  A big blurred circle for visual interest.
+  position: absolute removes it from normal flow.
+  pointer-events: none means you can't click on it.
+*/
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--glow), transparent 70%);
+  top: 10%; right: -10%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+/* ── BUTTONS ────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--ease);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(108,92,231,0.3);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  box-shadow: 0 8px 24px rgba(167,139,250,0.25);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 0.82rem;
+}
+
+.btn-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  border: 1px solid var(--border);
+}
+
+
+/* ── ABOUT ──────────────────────────────────── */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.about-text p {
+  color: var(--text2);
+  margin-bottom: 16px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.about-text strong { color: var(--text); }
+
+.about-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.detail-card {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all var(--ease);
+}
+
+.detail-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .detail-card:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.detail-icon {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+.detail-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.detail-card p {
+  font-size: 0.85rem;
+  color: var(--text3);
+  line-height: 1.6;
+}
+
+
+/* ── PROJECTS ───────────────────────────────── */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/*
+  LEARNING NOTE: Project card
+  Uses a combination of padding, border, and hover effects.
+  The transition property animates multiple properties smoothly.
+*/
+.project-card {
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all var(--ease);
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .project-card:hover {
+  box-shadow: 0 20px 48px rgba(0,0,0,0.3);
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.project-type {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text3);
+}
+
+.project-status {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 3px 10px;
+  border-radius: 50px;
+}
+
+.project-status.live {
+  background: rgba(0,184,148,0.12);
+  color: var(--accent2);
+}
+
+.project-status.demo {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.project-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.project-tagline {
+  font-size: 0.92rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/*
+  LEARNING NOTE: Tech tags
+  display: flex with flex-wrap: wrap allows tags to
+  flow naturally to the next line when space runs out.
+*/
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.project-tech span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  padding: 4px 12px;
+  background: var(--bg2);
+  color: var(--text2);
+  border-radius: 50px;
+  border: 1px solid var(--border);
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+}
+
+
+/* ── SKILLS ─────────────────────────────────── */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.skill-group {
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all var(--ease);
+}
+
+.skill-group:hover {
+  border-color: var(--accent);
+}
+
+.skill-group h3 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tags span {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  background: var(--bg2);
+  color: var(--text2);
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  transition: all var(--ease);
+}
+
+.skill-tags span:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+
+/* ── CONTACT ────────────────────────────────── */
+
+.contact-desc {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 500px;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all var(--ease);
+  text-decoration: none;
+}
+
+.contact-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .contact-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  width: 50px; height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.contact-card h3 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.contact-card p {
+  font-size: 0.82rem;
+  color: var(--text3);
+}
+
+
+/* ── FOOTER ─────────────────────────────────── */
+
+.footer {
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.82rem;
+  color: var(--text3);
+}
+
+
+/* ==============================================
+   5. ANIMATIONS
+   ==============================================
+
+   LEARNING NOTE: Scroll reveal animation
+   Elements start invisible and shifted down (opacity:0, translateY:30px).
+   When JavaScript adds the "visible" class, they animate to their
+   final position (opacity:1, translateY:0).
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+  LEARNING NOTE: Staggered animation
+  Each child delays slightly more, creating a cascading effect.
+  The :nth-child selector targets specific elements.
+*/
+.reveal:nth-child(2) { transition-delay: 0.1s; }
+.reveal:nth-child(3) { transition-delay: 0.2s; }
+.reveal:nth-child(4) { transition-delay: 0.3s; }
+.reveal:nth-child(5) { transition-delay: 0.4s; }
+
+
+/* ==============================================
+   6. RESPONSIVE DESIGN
+   ==============================================
+
+   LEARNING NOTE: Mobile-first approach
+   The base styles (above) are for mobile.
+   We ADD styles for bigger screens using min-width.
+
+   Common breakpoints:
+   - 768px  = tablet
+   - 1024px = desktop
+*/
+
+/* ── Mobile menu overlay ── */
+@media (max-width: 767px) {
+  .nav-links {
+    /*
+      LEARNING NOTE: Mobile menu
+      On mobile, nav links become a full-screen overlay.
+      Hidden by default (opacity:0, pointer-events:none).
+      When burger is clicked, JS adds .open class to show it.
+    */
+    position: fixed;
+    inset: 0;                    /* Same as top:0; right:0; bottom:0; left:0; */
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--ease);
+    z-index: 90;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav-link {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .burger { display: flex; }     /* Show burger on mobile */
+}
+
+/* ── Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-details {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .about-details {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

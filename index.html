@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  =====================================================
+  CARLO TEJEROS — PORTFOLIO
+  =====================================================
+
+  LEARNING NOTES:
+  ---------------
+  This is a single-page portfolio built with plain HTML, CSS, and JavaScript.
+  No frameworks, no build tools — just the fundamentals done right.
+
+  FILE STRUCTURE:
+  - index.html  → This file. Contains ALL HTML structure.
+  - style.css   → ALL styling (colors, layout, animations, responsive design).
+  - script.js   → ALL interactivity (scroll effects, theme toggle, nav, etc.).
+
+  KEY CONCEPTS USED:
+  1. Semantic HTML    → <header>, <main>, <section>, <footer> for accessibility & SEO
+  2. CSS Variables    → :root { --color: value } for easy theming (light/dark)
+  3. CSS Grid/Flexbox → Modern layout without floats or hacks
+  4. Intersection Observer API → Animate elements when they scroll into view
+  5. Smooth scrolling → CSS scroll-behavior + JS for nav links
+  6. Responsive design → Mobile-first with @media queries
+  7. CSS Transitions  → Smooth hover effects and theme switching
+
+  TIP: Read the comments in style.css and script.js too!
+  =====================================================
+-->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Carlo Tejeros — Full-Stack Web Developer</title>
+
+<!-- SEO Meta Tags (helps Google find and display your site correctly) -->
+<meta name="description" content="Carlo Tejeros — Full-Stack Web Developer specializing in booking systems, SaaS platforms, and modern web applications."/>
+<meta name="author" content="Carlo Tejeros"/>
+
+<!-- Open Graph (makes your site look good when shared on Facebook/LinkedIn) -->
+<meta property="og:title" content="Carlo Tejeros — Full-Stack Web Developer"/>
+<meta property="og:description" content="Building real-world web applications that solve business problems."/>
+<meta property="og:type" content="website"/>
+
+<!-- Google Fonts — DM Sans (clean, modern, professional) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+<!-- Our CSS file -->
+<link rel="stylesheet" href="style.css"/>
+</head>
+
+<!--
+  LEARNING NOTE: data-theme attribute
+  We use this to switch between light and dark mode.
+  CSS reads it like: [data-theme="dark"] { ... }
+  JavaScript toggles it: document.body.setAttribute('data-theme', 'dark')
+-->
+<body data-theme="dark">
+
+<!-- ============================================
+     NAVIGATION BAR
+     Fixed at top. Shows links + theme toggle.
+     ============================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <!--
+      LEARNING NOTE: The logo/brand
+      Using <a> so clicking it scrolls to top (#hero).
+    -->
+    <a href="#hero" class="nav-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Carlo<span class="brand-accent">.</span></span>
+    </a>
+
+    <!--
+      LEARNING NOTE: Navigation links
+      Each href="#section-id" scrolls to that section.
+      CSS scroll-behavior: smooth makes it animate.
+    -->
+    <div class="nav-links" id="navLinks">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+      <!--
+        LEARNING NOTE: Theme toggle button
+        onclick calls toggleTheme() from script.js
+        The icon changes between sun/moon based on theme.
+      -->
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">
+        <span class="theme-icon">&#9790;</span>
+      </button>
+
+      <!--
+        LEARNING NOTE: Hamburger menu (mobile only)
+        Shows/hides the nav links on small screens.
+        CSS hides this button on desktop (display:none above 768px).
+      -->
+      <button class="burger" onclick="toggleMenu()" id="burger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================
+     HERO SECTION
+     The big intro that visitors see first.
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <!--
+      LEARNING NOTE: "reveal" class
+      Elements with class="reveal" start invisible.
+      JavaScript's Intersection Observer detects when they
+      scroll into view and adds class="visible" to animate them in.
+      See script.js for the observer code.
+    -->
+    <div class="hero-badge reveal">AVAILABLE FOR PROJECTS</div>
+
+    <h1 class="hero-title reveal">
+      Hi, I'm <span class="highlight">Carlo Tejeros</span>
+    </h1>
+
+    <p class="hero-subtitle reveal">
+      Full-Stack Web Developer
+    </p>
+
+    <p class="hero-desc reveal">
+      I build real-world web applications that solve business problems — from
+      booking systems to payroll platforms. Clean code, modern UI, shipped to production.
+    </p>
+
+    <div class="hero-actions reveal">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+    </div>
+
+    <!--
+      LEARNING NOTE: Stats row
+      Quick credibility indicators for visitors.
+    -->
+    <div class="hero-stats reveal">
+      <div class="stat">
+        <span class="stat-num">4+</span>
+        <span class="stat-label">Projects Shipped</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Live in Production</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Full</span>
+        <span class="stat-label">Stack Developer</span>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    LEARNING NOTE: Decorative gradient blob
+    Pure CSS decoration. Uses filter: blur() for the glow effect.
+    position: absolute so it doesn't affect layout.
+  -->
+  <div class="hero-glow"></div>
+</section>
+
+<!-- ============================================
+     ABOUT SECTION
+     ============================================ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-label reveal">ABOUT ME</div>
+    <h2 class="section-title reveal">
+      Developer who builds<br/><span class="highlight">things that work</span>
+    </h2>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a Filipino web developer who loves turning ideas into working products.
+          I specialize in building complete web applications — from the database and backend
+          to the frontend UI that users interact with.
+        </p>
+        <p>
+          My approach is practical: understand what the business needs, build it clean,
+          ship it fast, and make sure it works on every device. I've built booking systems,
+          payroll platforms, and rental management tools — all running in production.
+        </p>
+        <p>
+          I work with <strong>HTML, CSS, JavaScript, Supabase, Vercel, and modern APIs</strong>
+          to deliver solutions that are fast, reliable, and easy to maintain.
+        </p>
+      </div>
+
+      <div class="about-details reveal">
+        <div class="detail-card">
+          <div class="detail-icon">&#128187;</div>
+          <h3>Frontend</h3>
+          <p>Responsive, mobile-first interfaces with smooth animations and clean design.</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">&#9881;</div>
+          <h3>Backend</h3>
+          <p>Supabase, Edge Functions, REST APIs, database design, and real-time features.</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">&#128640;</div>
+          <h3>Deployment</h3>
+          <p>CI/CD with Vercel, GitHub auto-deploy, DNS management, and production monitoring.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PROJECTS SECTION
+     ============================================ -->
+<section class="section section-alt" id="projects">
+  <div class="container">
+    <div class="section-label reveal">MY WORK</div>
+    <h2 class="section-title reveal">
+      Featured <span class="highlight">Projects</span>
+    </h2>
+
+    <div class="projects-grid">
+
+      <!-- PROJECT 1: Smash Grove -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <span class="project-type">Production App</span>
+          <span class="project-status live">LIVE</span>
+        </div>
+        <h3 class="project-title">Smash Grove Bambulo</h3>
+        <p class="project-tagline">Pickleball Court Booking System</p>
+        <p class="project-desc">
+          Full-featured court booking platform for a real pickleball facility. Customers book courts
+          in real-time, pay via GCash/GoTyme, and receive email confirmations. Admin panel includes
+          booking management, revenue analytics with Chart.js, maintenance scheduling, and Telegram
+          notifications.
+        </p>
+        <div class="project-tech">
+          <span>HTML/CSS/JS</span>
+          <span>Supabase</span>
+          <span>Edge Functions</span>
+          <span>Resend</span>
+          <span>Telegram Bot</span>
+          <span>Chart.js</span>
+          <span>Vercel</span>
+        </div>
+        <div class="project-links">
+          <a href="https://smashgrove.com" target="_blank" class="btn btn-sm">Visit Site &#8599;</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 2: Court Booking Demo -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <span class="project-type">SaaS Demo</span>
+          <span class="project-status demo">DEMO</span>
+        </div>
+        <h3 class="project-title">Court Booking Demo</h3>
+        <p class="project-tagline">White-Label Booking Platform</p>
+        <p class="project-desc">
+          Generic, rebrandable version of the court booking system — designed to be sold to
+          multiple pickleball/sports facilities. Features the same real-time booking engine,
+          admin dashboard, and payment integration with a neutral brand identity.
+        </p>
+        <div class="project-tech">
+          <span>HTML/CSS/JS</span>
+          <span>Supabase</span>
+          <span>Edge Functions</span>
+          <span>Vercel</span>
+        </div>
+        <div class="project-links">
+          <a href="https://pickleball-demo-wine.vercel.app" target="_blank" class="btn btn-sm">View Demo &#8599;</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: Car Rental -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <span class="project-type">Demo App</span>
+          <span class="project-status demo">DEMO</span>
+        </div>
+        <h3 class="project-title">Salakyan Car Rental</h3>
+        <p class="project-tagline">Vehicle Rental Management System</p>
+        <p class="project-desc">
+          Car rental platform with vehicle listing, reservation system, and admin dashboard.
+          Built with a warm, modern UI featuring theme switching, responsive design, and
+          Supabase backend for data management.
+        </p>
+        <div class="project-tech">
+          <span>Vite + React</span>
+          <span>Tailwind CSS</span>
+          <span>Supabase</span>
+          <span>Vercel</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="btn btn-sm btn-disabled">Coming Soon</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 4: Time In/Out Payroll -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <span class="project-type">Production App</span>
+          <span class="project-status live">LIVE</span>
+        </div>
+        <h3 class="project-title">Time In/Out + Auto Payroll</h3>
+        <p class="project-tagline">Employee Attendance & Payroll System</p>
+        <p class="project-desc">
+          Automated attendance tracking with photo capture on clock-in/out. Calculates
+          hours worked, overtime, and generates payroll automatically. Built with Next.js
+          and Supabase for real-time data.
+        </p>
+        <div class="project-tech">
+          <span>Next.js</span>
+          <span>TypeScript</span>
+          <span>Tailwind CSS</span>
+          <span>Supabase</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="btn btn-sm btn-disabled">Private Client</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SKILLS SECTION
+     ============================================ -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-label reveal">TECH STACK</div>
+    <h2 class="section-title reveal">
+      Tools I <span class="highlight">work with</span>
+    </h2>
+
+    <div class="skills-grid reveal">
+      <!--
+        LEARNING NOTE: Skill categories
+        Each category card groups related technologies.
+      -->
+      <div class="skill-group">
+        <h3>Frontend</h3>
+        <div class="skill-tags">
+          <span>HTML5</span>
+          <span>CSS3</span>
+          <span>JavaScript</span>
+          <span>React</span>
+          <span>Next.js</span>
+          <span>Tailwind CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Backend</h3>
+        <div class="skill-tags">
+          <span>Supabase</span>
+          <span>PostgreSQL</span>
+          <span>Edge Functions</span>
+          <span>REST APIs</span>
+          <span>Node.js</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Services & APIs</h3>
+        <div class="skill-tags">
+          <span>Resend (Email)</span>
+          <span>Telegram Bot API</span>
+          <span>Chart.js</span>
+          <span>GCash / GoTyme</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>DevOps & Tools</h3>
+        <div class="skill-tags">
+          <span>Git / GitHub</span>
+          <span>Vercel</span>
+          <span>VS Code</span>
+          <span>Namecheap DNS</span>
+          <span>CI/CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACT SECTION
+     ============================================ -->
+<section class="section section-alt" id="contact">
+  <div class="container">
+    <div class="section-label reveal">GET IN TOUCH</div>
+    <h2 class="section-title reveal">
+      Let's <span class="highlight">work together</span>
+    </h2>
+
+    <p class="contact-desc reveal">
+      Have a project in mind? I'm open to freelance work, collaborations,
+      and full-time opportunities. Let's talk.
+    </p>
+
+    <div class="contact-grid reveal">
+      <a href="mailto:carlotejeros6@gmail.com" class="contact-card">
+        <div class="contact-icon">&#9993;</div>
+        <h3>Email</h3>
+        <p>carlotejeros6@gmail.com</p>
+      </a>
+
+      <a href="https://www.linkedin.com/in/carlo-tejeros-4b363b24a" target="_blank" class="contact-card">
+        <div class="contact-icon">&#128101;</div>
+        <h3>LinkedIn</h3>
+        <p>Carlo Tejeros</p>
+      </a>
+
+      <a href="https://facebook.com/search/top?q=Carlo%20Tejeros" target="_blank" class="contact-card">
+        <div class="contact-icon">&#127760;</div>
+        <h3>Facebook</h3>
+        <p>Carlo Tejeros</p>
+      </a>
+
+      <a href="https://github.com/tejerocx" target="_blank" class="contact-card">
+        <div class="contact-icon">&#128187;</div>
+        <h3>GitHub</h3>
+        <p>tejerocx</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 Carlo Tejeros. Built with plain HTML, CSS & JS.</p>
+  </div>
+</footer>
+
+<!-- Our JavaScript file -->
+<script src="script.js"></script>
+</body>
+</html>
