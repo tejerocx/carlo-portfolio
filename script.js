@@ -136,7 +136,9 @@ window.addEventListener('scroll', () => {
 
 function toggleMenu() {
   $('navLinks').classList.toggle('open');
-  $('burger').classList.toggle('open');
+  const burger = $('burger');
+  burger.classList.toggle('open');
+  burger.setAttribute('aria-expanded', burger.classList.contains('open'));
 }
 
 // Close mobile menu when a nav link is clicked
@@ -217,12 +219,11 @@ document.querySelectorAll('.reveal').forEach(el => {
 // =============================================
 /*
   LEARNING NOTE: Dynamic year
-  Instead of hardcoding "2026", we could use JavaScript
-  to always show the current year. But since this portfolio
-  has a static year in the HTML, this is just for reference.
-
-  Usage: document.getElementById('year').textContent = new Date().getFullYear();
+  We set the year dynamically so it never needs manual updates.
+  document.getElementById('year') finds the <span id="year"> in the footer.
 */
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 
 /*
