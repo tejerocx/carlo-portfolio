@@ -33,6 +33,10 @@
 */
 const $ = id => document.getElementById(id);
 
+// Always start at the top on page load / hard refresh
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 
 // =============================================
 // 1. THEME TOGGLE (Light / Dark Mode)
