@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/63965/Desktop/**)",
+      "Bash(vercel --version)",
+      "Bash(vercel ls)",
+      "Bash(vercel ls carlo-portfolio)",
+      "Bash(vercel inspect https://carlo-portfolio-seven.vercel.app)",
+      "Bash(vercel ls carlo-portfolio-seven)",
+      "Bash(vercel project ls)",
+      "Bash(vercel domains ls)",
+      "Bash(vercel certs ls)",
+      "Bash(vercel link --yes)",
+      "Bash(vercel --prod)",
+      "Bash(\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\" api repos/tejerocx/carlo-portfolio/pages -X POST -f \"source[branch]=master\" -f \"source[path]=/\")",
+      "Bash(where gh)",
+      "Bash(where gh.exe)"
+    ]
+  }
+}
