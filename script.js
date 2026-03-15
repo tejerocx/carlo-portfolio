@@ -118,11 +118,44 @@ window.addEventListener('scroll', () => {
   const nav = $('nav');
   if (!nav) return;
 
+  // Solid/glass background after scrolling past 50px
   if (window.scrollY > 50) {
     nav.classList.add('scrolled');
   } else {
     nav.classList.remove('scrolled');
   }
+
+  // ── Scroll progress bar ──
+  // Calculates how far down the page you've scrolled (0–100%)
+  // and sets the bar width to match.
+  const scrollProgress = $('scrollProgress');
+  if (scrollProgress) {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    scrollProgress.style.width = (scrollTop / scrollHeight) * 100 + '%';
+  }
+
+  // ── Active nav link tracking ──
+  // Finds which section is currently in the viewport
+  // and highlights the matching nav link with .active class.
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const scrollY = window.scrollY + 120;
+
+  sections.forEach(section => {
+    const top = section.offsetTop;
+    const height = section.offsetHeight;
+    const id = section.getAttribute('id');
+
+    if (scrollY >= top && scrollY < top + height) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
 });
 
 
@@ -228,6 +261,130 @@ document.querySelectorAll('.reveal').forEach(el => {
 */
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+
+// =============================================
+// 6. TYPING ANIMATION (Hero Subtitle)
+// =============================================
+/*
+  LEARNING NOTE: Typing effect
+
+  This creates a "typewriter" animation that cycles through
+  different role titles in the hero section.
+
+  HOW IT WORKS:
+  1. We have an array of role strings to cycle through
+  2. Characters are added one-by-one (typing phase)
+  3. After a pause, characters are removed one-by-one (deleting phase)
+  4. Then the next role starts typing
+
+  The speed variables control how fast each phase runs:
+  - typeSpeed: how fast characters appear
+  - deleteSpeed: how fast characters are removed (faster feels natural)
+  - pauseEnd: how long to show the completed text
+  - pauseStart: brief pause before typing the next role
+*/
+
+const typingTarget = $('typingTarget');
+if (typingTarget) {
+  const roles = [
+    'Full-Stack Web Developer',
+    'SaaS Builder',
+    'Booking System Specialist',
+    'AI Automation Specialist'
+  ];
+  let roleIndex = 0;
+  let charIndex = roles[0].length; // Start with first role already shown
+  let isDeleting = false;
+  let speed = 80;
+
+  function type() {
+    const currentRole = roles[roleIndex];
+
+    if (isDeleting) {
+      // Remove one character at a time
+      typingTarget.textContent = currentRole.substring(0, charIndex - 1);
+      charIndex--;
+      speed = 40;
+    } else {
+      // Add one character at a time
+      typingTarget.textContent = currentRole.substring(0, charIndex + 1);
+      charIndex++;
+      speed = 80;
+    }
+
+    // Finished typing → pause, then start deleting
+    if (!isDeleting && charIndex === currentRole.length) {
+      speed = 2000;
+      isDeleting = true;
+    }
+    // Finished deleting → move to next role, pause briefly
+    else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+      speed = 400;
+    }
+
+    setTimeout(type, speed);
+  }
+
+  // Start the animation after a 2-second delay
+  // (let the page load and user see the first role first)
+  setTimeout(type, 2000);
+}
+
+
+// =============================================
+// 7. ANIMATED STAT COUNTERS
+// =============================================
+/*
+  LEARNING NOTE: Counter animation with Intersection Observer
+
+  Instead of showing static numbers, the stats count UP from 0
+  when they scroll into view. This draws the eye and feels dynamic.
+
+  HOW IT WORKS:
+  1. Each .stat-num has data-target="4" (the final number)
+     and data-suffix="+" (text after the number, like "4+")
+  2. An IntersectionObserver watches for when they become visible
+  3. When visible, we run a timer that increments from 0 to target
+  4. We unobserve after animating (only animate once)
+
+  The math: if target=4 and duration=1500ms with 50ms intervals,
+  that's 30 steps, so increment = 4/30 ≈ 0.13 per step.
+*/
+
+const counterObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-target'));
+        const suffix = el.getAttribute('data-suffix') || '';
+        let current = 0;
+        const duration = 1500;
+        const steps = duration / 50;
+        const increment = target / steps;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          el.textContent = Math.floor(current) + suffix;
+        }, 50);
+
+        counterObserver.unobserve(el);
+      }
+    });
+  },
+  { threshold: 0.5 }
+);
+
+document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+  counterObserver.observe(el);
+});
 
 
 /*

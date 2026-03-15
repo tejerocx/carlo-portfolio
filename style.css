@@ -1003,3 +1003,263 @@ img { max-width: 100%; }
     font-size: 5rem;
   }
 }
+
+
+/* ==============================================
+   7. UI/UX ENHANCEMENTS — MODERN REDESIGN
+   ==============================================
+
+   LEARNING NOTE:
+   These styles add polish and interactivity to the portfolio.
+   They are appended AFTER the base styles so that CSS cascade
+   (later rules override earlier ones at equal specificity)
+   lets them enhance/override the originals cleanly.
+
+   WHAT'S NEW:
+   - Scroll progress bar (shows reading position)
+   - Glassmorphism (frosted glass effect on nav & cards)
+   - Active nav highlights (current section indicator)
+   - Gradient text effects
+   - Pulsing animations
+   - Enhanced hover states with glow effects
+   - Typing cursor animation
+   - Mesh gradient hero background
+*/
+
+
+/* ── Scroll Progress Bar ──────────────────────
+   LEARNING NOTE:
+   A thin colored bar fixed to the very top of the viewport.
+   Its width is updated by JavaScript based on scroll position.
+   z-index: 200 ensures it stays above the navbar (z-index: 100).
+*/
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #a78bfa);
+  width: 0%;
+  z-index: 200;
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .scroll-progress {
+  background: linear-gradient(90deg, #a78bfa, #c4b5fd, #a78bfa);
+}
+
+
+/* ── Enhanced Nav — Glassmorphism ─────────────
+   LEARNING NOTE: Glassmorphism effect
+   backdrop-filter: blur() blurs everything BEHIND the element,
+   creating a frosted glass look. The semi-transparent background
+   lets the blurred content show through.
+   -webkit-backdrop-filter is needed for Safari support.
+*/
+.nav.scrolled {
+  background: rgba(250, 250, 249, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .nav.scrolled {
+  background: rgba(12, 12, 16, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ── Active Nav Link ──────────────────────────
+   LEARNING NOTE:
+   JavaScript adds .active to whichever nav link matches
+   the section currently in the viewport. The ::after underline
+   stays visible (not just on hover), so the user always knows
+   which section they're reading.
+*/
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+
+/* ── Hero Mesh Gradient Background ────────────
+   LEARNING NOTE: Layered radial gradients
+   Multiple radial-gradient() layers create a subtle, organic
+   "mesh" effect behind the hero content. Each gradient is an
+   ellipse positioned at a different spot. Very trendy in modern
+   web design (2024–2025). pointer-events: none makes it non-interactive.
+*/
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(108, 92, 231, 0.05), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(167, 139, 250, 0.03), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="dark"] .hero::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(108, 92, 231, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(167, 139, 250, 0.08), transparent);
+}
+
+
+/* ── Pulsing "Available" Badge ────────────────
+   LEARNING NOTE: ::before pseudo-element
+   We add a pulsing green dot BEFORE the badge text using CSS only.
+   The animation creates a "ripple" effect using box-shadow that
+   expands outward and fades — signaling "I'm actively available."
+*/
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-badge::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent2);
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(0, 184, 148, 0); }
+}
+
+
+/* ── Gradient Text on Hero Name ───────────────
+   LEARNING NOTE: Gradient text trick
+   1. Apply a gradient as the element's background
+   2. background-clip: text clips the gradient to the text shape
+   3. -webkit-text-fill-color: transparent hides the solid text color
+   Result: the gradient shows through ONLY where the text is.
+*/
+.hero-title .highlight {
+  background: linear-gradient(135deg, #6c5ce7, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .hero-title .highlight {
+  background: linear-gradient(135deg, #a78bfa, #c4b5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+/* ── Typing Cursor Animation ──────────────────
+   LEARNING NOTE: Blinking cursor
+   step-end timing creates an INSTANT on/off toggle
+   (no smooth fade), mimicking a real terminal cursor blink.
+   This pairs with the JavaScript typing animation.
+*/
+.typing-cursor {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 300;
+  animation: blink-cursor 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+/* ── Enhanced Project Card Hover ──────────────
+   LEARNING NOTE: Glow effect
+   A colored box-shadow creates a soft glow around the card.
+   The slightly larger translateY(-6px) lift gives more depth.
+   Different shadow colors for light vs dark mode keep the
+   glow feeling natural in both themes.
+*/
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 25px 60px rgba(108, 92, 231, 0.1),
+    0 0 0 1px rgba(108, 92, 231, 0.08);
+}
+
+[data-theme="dark"] .project-card:hover {
+  box-shadow:
+    0 25px 60px rgba(167, 139, 250, 0.08),
+    0 0 0 1px rgba(167, 139, 250, 0.12);
+}
+
+
+/* ── Glassmorphism Cards (Dark Mode) ──────────
+   LEARNING NOTE:
+   Semi-transparent background + blur() creates a layered,
+   depth-rich "glass" UI. Applied only in dark mode where
+   the effect looks best against the dark background.
+*/
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .detail-card,
+[data-theme="dark"] .skill-group,
+[data-theme="dark"] .contact-card {
+  background: rgba(28, 28, 36, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+
+/* ── Enhanced Reveal Animation ────────────────
+   LEARNING NOTE: Premium easing
+   cubic-bezier(0.16, 1, 0.3, 1) is an "ease-out-expo" curve.
+   It starts fast and decelerates smoothly — feels more natural
+   and polished than the default ease timing.
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* ── Enhanced Button Hover ────────────────────
+*/
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(108, 92, 231, 0.35);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  box-shadow: 0 12px 32px rgba(167, 139, 250, 0.3);
+}
+
+
+/* ── Enhanced Skill Tag Interaction ───────────
+*/
+.skill-tags span {
+  cursor: default;
+}
+
+.skill-tags span:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.12);
+}
+
+[data-theme="dark"] .skill-tags span:hover {
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.15);
+}

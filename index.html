@@ -73,6 +73,9 @@
 
 <body data-theme="dark">
 
+  <!-- Scroll progress bar — thin accent line at top of page -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <!-- ============================================
      NAVIGATION BAR
      Fixed at top. Shows links + theme toggle.
@@ -139,7 +142,7 @@
         </h1>
 
         <p class="hero-subtitle reveal">
-          Full-Stack Web Developer
+          <span id="typingTarget">Full-Stack Web Developer</span><span class="typing-cursor" aria-hidden="true">|</span>
         </p>
 
         <p class="hero-desc reveal">
@@ -156,15 +159,15 @@
 
         <div class="hero-stats reveal">
           <div class="stat">
-            <span class="stat-num">4+</span>
+            <span class="stat-num" data-target="4" data-suffix="+">0+</span>
             <span class="stat-label">Projects Shipped</span>
           </div>
           <div class="stat">
-            <span class="stat-num">3</span>
+            <span class="stat-num" data-target="3" data-suffix="">0</span>
             <span class="stat-label">Live in Production</span>
           </div>
           <div class="stat">
-            <span class="stat-num">2+</span>
+            <span class="stat-num" data-target="2" data-suffix="+">0+</span>
             <span class="stat-label">Years Building</span>
           </div>
         </div>
