@@ -2,100 +2,42 @@
 <html lang="en">
 
 <head>
-  <!--
-  =====================================================
-  CARLO TEJEROS — PORTFOLIO
-  =====================================================
-
-  LEARNING NOTES:
-  ---------------
-  This is a single-page portfolio built with plain HTML, CSS, and JavaScript.
-  No frameworks, no build tools — just the fundamentals done right.
-
-  FILE STRUCTURE:
-  - index.html  → This file. Contains ALL HTML structure.
-  - style.css   → ALL styling (colors, layout, animations, responsive design).
-  - script.js   → ALL interactivity (scroll effects, theme toggle, nav, etc.).
-
-  KEY CONCEPTS USED:
-  1. Semantic HTML    → <header>, <main>, <section>, <footer> for accessibility & SEO
-  2. CSS Variables    → :root { --color: value } for easy theming (light/dark)
-  3. CSS Grid/Flexbox → Modern layout without floats or hacks
-  4. Intersection Observer API → Animate elements when they scroll into view
-  5. Smooth scrolling → CSS scroll-behavior + JS for nav links
-  6. Responsive design → Mobile-first with @media queries
-  7. CSS Transitions  → Smooth hover effects and theme switching
-
-  TIP: Read the comments in style.css and script.js too!
-  =====================================================
--->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carlo Tejeros — Full-Stack Web Developer</title>
 
-  <!-- SEO Meta Tags (helps Google find and display your site correctly) -->
   <meta name="description"
     content="Carlo Tejeros — Full-Stack Web Developer specializing in booking systems, SaaS platforms, and modern web applications." />
   <meta name="author" content="Carlo Tejeros" />
 
-  <!-- Open Graph (makes your site look good when shared on Facebook/LinkedIn) -->
   <meta property="og:title" content="Carlo Tejeros — Full-Stack Web Developer" />
   <meta property="og:description" content="Building real-world web applications that solve business problems." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://carlotejeros.dev" />
-  <meta property="og:image" content="https://carlotejeros.dev/og-image.png" />
 
-  <!-- Twitter/X Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Carlo Tejeros — Full-Stack Web Developer" />
   <meta name="twitter:description" content="Building real-world web applications that solve business problems." />
 
-  <!-- Favicon -->
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%236c5ce7'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='800' fill='white'%3ECT%3C/text%3E%3C/svg%3E" />
 
-  <!-- Google Fonts — DM Sans (clean, modern, professional) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
-  <!-- Our CSS file -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<!--
-  LEARNING NOTE: data-theme attribute
-  We use this to switch between light and dark mode.
-  CSS reads it like: [data-theme="dark"] { ... }
-  JavaScript toggles it: document.body.setAttribute('data-theme', 'dark')
--->
-
 <body data-theme="dark">
 
-  <!-- Scroll progress bar — thin accent line at top of page -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- ============================================
-     NAVIGATION BAR
-     Fixed at top. Shows links + theme toggle.
-     ============================================ -->
+  <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <!--
-      LEARNING NOTE: The logo/brand
-      Using <a> so clicking it scrolls to top (#hero).
-    -->
-      <a href="#hero" class="nav-brand">
-        <span class="brand-dot"></span>
-        <span class="brand-name">Carlo<span class="brand-accent">.</span></span>
-      </a>
+      <a href="#hero" class="nav-logo">CT<span class="accent-dot">.</span></a>
 
-      <!--
-      LEARNING NOTE: Navigation links
-      Each href="#section-id" scrolls to that section.
-      CSS scroll-behavior: smooth makes it animate.
-    -->
       <div class="nav-links" id="navLinks">
         <a href="#about" class="nav-link">About</a>
         <a href="#projects" class="nav-link">Projects</a>
@@ -104,21 +46,10 @@
       </div>
 
       <div class="nav-actions">
-        <!--
-        LEARNING NOTE: Theme toggle button
-        onclick calls toggleTheme() from script.js
-        The icon changes between sun/moon based on theme.
-      -->
         <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme"
           aria-label="Toggle color theme">
           <span class="theme-icon" aria-hidden="true">&#9790;</span>
         </button>
-
-        <!--
-        LEARNING NOTE: Hamburger menu (mobile only)
-        Shows/hides the nav links on small screens.
-        CSS hides this button on desktop (display:none above 768px).
-      -->
         <button class="burger" onclick="toggleMenu()" id="burger" aria-label="Toggle navigation menu"
           aria-expanded="false">
           <span></span><span></span><span></span>
@@ -127,129 +58,111 @@
     </div>
   </nav>
 
-  <!-- ============================================
-     HERO SECTION
-     The big intro that visitors see first.
-     ============================================ -->
+  <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-inner">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-inner">
 
-      <div class="hero-content">
-        <div class="hero-badge reveal">AVAILABLE FOR PROJECTS</div>
+        <div class="hero-content">
+          <div class="hero-badge reveal">Available for Projects</div>
 
-        <h1 class="hero-title reveal">
-          Hi, I'm <span class="highlight">Carlo Tejeros</span>
-        </h1>
+          <h1 class="hero-title reveal">
+            Carlo<br>
+            <span class="highlight">Tejeros</span><span class="accent-dot">.</span>
+          </h1>
 
-        <p class="hero-subtitle reveal">
-          <span id="typingTarget">Full-Stack Web Developer</span><span class="typing-cursor" aria-hidden="true">|</span>
-        </p>
+          <p class="hero-subtitle reveal">
+            <span id="typingTarget">Full-Stack Web Developer</span><span class="typing-cursor" aria-hidden="true">|</span>
+          </p>
 
-        <p class="hero-desc reveal">
-          Hi, I'm Carlo — a full-stack developer from the Philippines. I build web apps
-          for real businesses, like booking systems with live payments and automated payroll tools.
-          I handle everything from database to deployment, and I genuinely enjoy the process.
-        </p>
+          <p class="hero-desc reveal">
+            Hi, I'm Carlo — a full-stack developer from the Philippines. I build web apps
+            for real businesses, like booking systems with live payments and automated payroll tools.
+            I handle everything from database to deployment, and I genuinely enjoy the process.
+          </p>
 
-        <div class="hero-actions reveal">
-          <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-ghost">Get In Touch</a>
-          <a href="resume.html" class="btn btn-ghost" aria-label="View resume">Resume</a>
+          <div class="hero-actions reveal">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+            <a href="resume.html" class="btn btn-ghost" aria-label="View resume">Resume</a>
+          </div>
+
+          <div class="hero-stats reveal">
+            <div class="stat">
+              <span class="stat-num" data-target="4" data-suffix="+">0+</span>
+              <span class="stat-label">Projects Shipped</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-target="3" data-suffix="">0</span>
+              <span class="stat-label">Live in Production</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-target="2" data-suffix="+">0+</span>
+              <span class="stat-label">Years Building</span>
+            </div>
+          </div>
         </div>
 
-        <div class="hero-stats reveal">
-          <div class="stat">
-            <span class="stat-num" data-target="4" data-suffix="+">0+</span>
-            <span class="stat-label">Projects Shipped</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-target="3" data-suffix="">0</span>
-            <span class="stat-label">Live in Production</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-target="2" data-suffix="+">0+</span>
-            <span class="stat-label">Years Building</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-photo reveal">
-        <div class="avatar-wrapper">
+        <div class="hero-photo reveal">
           <div class="avatar">
             <img src="pic.png" alt="Carlo Tejeros — Full-Stack Web Developer">
           </div>
-          <div class="avatar-ring" aria-hidden="true"></div>
         </div>
+
       </div>
-
     </div>
-
-    <div class="hero-glow" aria-hidden="true"></div>
   </section>
 
-  <!-- ============================================
-     ABOUT SECTION
-     ============================================ -->
+  <!-- ABOUT — Bento Grid Layout -->
   <section class="section" id="about">
     <div class="container">
-      <div class="section-label reveal">ABOUT ME</div>
-      <h2 class="section-title reveal">
-        Developer who builds<br /><span class="highlight">things that work</span>
-      </h2>
+      <span class="section-label reveal">About</span>
+      <h2 class="section-heading reveal">A bit about me<span class="accent-dot">.</span></h2>
 
-      <div class="about-grid">
-        <div class="about-text reveal">
+      <div class="bento-grid">
+        <div class="bento-card bento-bio reveal">
           <p>
-            I'm a Filipino web developer who loves turning ideas into working products.
-            I specialize in building complete web applications — from the database and backend
-            to the frontend UI that users interact with.
+            I'm a self-taught developer who started in IT support and grew into building
+            full-stack web applications from scratch. What drives me is turning real business
+            problems into clean, working software — not just writing code for the sake of it.
           </p>
           <p>
-            My approach is practical: understand what the business needs, build it clean,
-            ship it fast, and make sure it works on every device. I've built booking systems,
-            payroll platforms, and rental management tools — all running in production.
-          </p>
-          <p>
-            I work with <strong>HTML, CSS, JavaScript, Supabase, Vercel, and modern APIs</strong>
-            to deliver solutions that are fast, reliable, and easy to maintain.
+            Every project I take on gets my full attention: from understanding the business need,
+            to designing the database, building the interface, and deploying it live. I've worked
+            with clients across the Philippines, and I treat every project like it's my own.
           </p>
         </div>
-
-        <div class="about-details reveal">
-          <div class="detail-card">
-            <div class="detail-icon">&#128187;</div>
-            <h3>Frontend</h3>
-            <p>Responsive, mobile-first interfaces with smooth animations and clean design.</p>
-          </div>
-          <div class="detail-card">
-            <div class="detail-icon">&#9881;</div>
-            <h3>Backend</h3>
-            <p>Supabase, Edge Functions, REST APIs, database design, and real-time features.</p>
-          </div>
-          <div class="detail-card">
-            <div class="detail-icon">&#128640;</div>
-            <h3>Deployment</h3>
-            <p>CI/CD with Vercel, GitHub auto-deploy, DNS management, and production monitoring.</p>
-          </div>
+        <div class="bento-card bento-sm reveal">
+          <div class="bento-icon">&#128187;</div>
+          <h3>Frontend</h3>
+          <p>Responsive, mobile-first interfaces with smooth animations and clean design.</p>
+        </div>
+        <div class="bento-card bento-sm reveal">
+          <div class="bento-icon">&#9881;</div>
+          <h3>Backend</h3>
+          <p>Supabase, Edge Functions, REST APIs, database design, and real-time features.</p>
+        </div>
+        <div class="bento-card bento-wide reveal">
+          <div class="bento-icon">&#128640;</div>
+          <h3>Deployment &amp; Automation</h3>
+          <p>CI/CD with Vercel, GitHub auto-deploy, DNS management, workflow automation with n8n, Twilio, and custom integrations.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================
-     PROJECTS SECTION
-     ============================================ -->
+  <!-- PROJECTS — Featured + Grid -->
   <section class="section section-alt" id="projects">
     <div class="container">
-      <div class="section-label reveal">MY WORK</div>
-      <h2 class="section-title reveal">
-        Featured <span class="highlight">Projects</span>
-      </h2>
+      <span class="section-label reveal">Projects</span>
+      <h2 class="section-heading reveal">Selected work<span class="accent-dot">.</span></h2>
 
-      <div class="projects-grid">
-
-        <!-- PROJECT 1: Smash Grove -->
-        <div class="project-card reveal">
+      <!-- Featured Project -->
+      <div class="project-featured reveal">
+        <div class="project-featured-accent" aria-hidden="true"></div>
+        <div class="project-featured-inner">
+          <div class="project-featured-badge">Featured Project</div>
           <div class="project-header">
             <span class="project-type">Production App</span>
             <span class="project-status live">LIVE</span>
@@ -272,11 +185,13 @@
             <span>Vercel</span>
           </div>
           <div class="project-links">
-            <a href="https://smashgrove.com" target="_blank" class="btn btn-sm">Visit Site &#8599;</a>
+            <a href="https://smashgrove.com" target="_blank" class="btn btn-sm btn-primary">Visit Live Site &#8599;</a>
           </div>
         </div>
+      </div>
 
-        <!-- PROJECT 2: Court Booking Demo -->
+      <!-- Project Grid -->
+      <div class="project-grid">
         <div class="project-card reveal">
           <div class="project-header">
             <span class="project-type">SaaS Demo</span>
@@ -300,7 +215,6 @@
           </div>
         </div>
 
-        <!-- PROJECT 3: Car/Motorcycle Rental -->
         <div class="project-card reveal">
           <div class="project-header">
             <span class="project-type">Demo App</span>
@@ -324,14 +238,13 @@
           </div>
         </div>
 
-        <!-- PROJECT 4: Time In/Out Payroll -->
         <div class="project-card reveal">
           <div class="project-header">
             <span class="project-type">Production App</span>
             <span class="project-status live">LIVE</span>
           </div>
           <h3 class="project-title">Time In/Out + Auto Payroll</h3>
-          <p class="project-tagline">Employee Attendance & Payroll System</p>
+          <p class="project-tagline">Employee Attendance &amp; Payroll System</p>
           <p class="project-desc">
             Automated attendance tracking with photo capture on clock-in/out. Calculates
             hours worked, overtime, and generates payroll automatically. Built with Next.js
@@ -347,26 +260,17 @@
             <a href="#" class="btn btn-sm btn-disabled">Private Client</a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ============================================
-     SKILLS SECTION
-     ============================================ -->
+  <!-- SKILLS -->
   <section class="section" id="skills">
     <div class="container">
-      <div class="section-label reveal">TECH STACK</div>
-      <h2 class="section-title reveal">
-        Tools I <span class="highlight">work with</span>
-      </h2>
+      <span class="section-label reveal">Tech Stack</span>
+      <h2 class="section-heading reveal">Tools I work with<span class="accent-dot">.</span></h2>
 
       <div class="skills-grid reveal">
-        <!--
-        LEARNING NOTE: Skill categories
-        Each category card groups related technologies.
-      -->
         <div class="skill-group">
           <h3>Frontend</h3>
           <div class="skill-tags">
@@ -379,7 +283,6 @@
             <span>Tailwind CSS</span>
           </div>
         </div>
-
         <div class="skill-group">
           <h3>Backend</h3>
           <div class="skill-tags">
@@ -390,9 +293,8 @@
             <span>Node.js</span>
           </div>
         </div>
-
         <div class="skill-group">
-          <h3>Services & APIs</h3>
+          <h3>Services &amp; APIs</h3>
           <div class="skill-tags">
             <span>Resend (Email)</span>
             <span>Telegram Bot API</span>
@@ -400,9 +302,8 @@
             <span>GCash / GoTyme</span>
           </div>
         </div>
-
         <div class="skill-group">
-          <h3>DevOps & Tools</h3>
+          <h3>DevOps &amp; Tools</h3>
           <div class="skill-tags">
             <span>Git / GitHub</span>
             <span>Vercel</span>
@@ -415,15 +316,11 @@
     </div>
   </section>
 
-  <!-- ============================================
-     CONTACT SECTION
-     ============================================ -->
+  <!-- CONTACT -->
   <section class="section section-alt" id="contact">
     <div class="container">
-      <div class="section-label reveal">GET IN TOUCH</div>
-      <h2 class="section-title reveal">
-        Let's <span class="highlight">work together</span>
-      </h2>
+      <span class="section-label reveal">Get In Touch</span>
+      <h2 class="section-heading reveal">Let's work together<span class="accent-dot">.</span></h2>
 
       <p class="contact-desc reveal">
         Have a project in mind? I'm open to freelance work, collaborations,
@@ -436,13 +333,11 @@
           <h3>Email</h3>
           <p>carlotejeros6@gmail.com</p>
         </a>
-
         <a href="https://www.linkedin.com/in/carlo-tejeros-4b363b24a" target="_blank" class="contact-card">
           <div class="contact-icon">&#128101;</div>
           <h3>LinkedIn</h3>
           <p>Carlo Tejeros</p>
         </a>
-
         <a href="https://github.com/tejerocx" target="_blank" class="contact-card">
           <div class="contact-icon">&#128187;</div>
           <h3>GitHub</h3>
@@ -452,16 +347,13 @@
     </div>
   </section>
 
-  <!-- ============================================
-     FOOTER
-     ============================================ -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; <span id="year">2026</span> Carlo Tejeros. Built with plain HTML, CSS & JS.</p>
+      <p>&copy; <span id="year">2026</span> Carlo Tejeros. Built with plain HTML, CSS &amp; JS.</p>
     </div>
   </footer>
 
-  <!-- Our JavaScript file -->
   <script src="script.js"></script>
 </body>
 
