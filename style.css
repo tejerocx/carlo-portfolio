@@ -305,14 +305,72 @@ img { max-width: 100%; }
     radial-gradient(ellipse 60% 40% at 80% 20%, rgba(167, 139, 250, 0.06), transparent);
 }
 
-.hero-glow {
+/* Dot grid pattern */
+.hero-grid {
   position: absolute;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, var(--glow), transparent 70%);
-  top: 10%; right: -10%;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(108, 92, 231, 0.18) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 40%, black 30%, transparent 72%);
+  mask-image: radial-gradient(ellipse 85% 80% at 50% 40%, black 30%, transparent 72%);
   pointer-events: none;
   z-index: 0;
 }
+
+[data-theme="dark"] .hero-grid {
+  background-image: radial-gradient(circle, rgba(167, 139, 250, 0.25) 1px, transparent 1px);
+}
+
+/* Animated floating orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(70px);
+}
+
+.hero-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(108, 92, 231, 0.22), transparent 70%);
+  top: -15%; left: -10%;
+  animation: float-orb-1 14s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.18), transparent 70%);
+  top: 30%; right: -5%;
+  animation: float-orb-2 18s ease-in-out infinite;
+}
+
+.hero-orb-3 {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.12), transparent 70%);
+  bottom: 15%; left: 45%;
+  animation: float-orb-3 12s ease-in-out infinite;
+}
+
+@keyframes float-orb-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(25px, -35px) scale(1.06); }
+  66%  { transform: translate(-15px, 25px) scale(0.96); }
+}
+
+@keyframes float-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-30px, 25px) scale(0.94); }
+  66%  { transform: translate(20px, -30px) scale(1.04); }
+}
+
+@keyframes float-orb-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-25px, -20px) scale(1.08); }
+}
+
+[data-theme="dark"] .hero-orb-1 { background: radial-gradient(circle, rgba(108, 92, 231, 0.38), transparent 70%); }
+[data-theme="dark"] .hero-orb-2 { background: radial-gradient(circle, rgba(167, 139, 250, 0.3), transparent 70%); }
+[data-theme="dark"] .hero-orb-3 { background: radial-gradient(circle, rgba(52, 211, 153, 0.16), transparent 70%); }
 
 .hero-inner {
   max-width: 1100px;
@@ -472,6 +530,42 @@ img { max-width: 100%; }
   display: block;
 }
 
+/* Rotating aurora halo behind avatar */
+.avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  background: radial-gradient(ellipse at 35% 30%, var(--accent), rgba(167, 139, 250, 0.7), rgba(52, 211, 153, 0.4), transparent 60%);
+  border-radius: calc(var(--radius-xl) + 18px);
+  filter: blur(26px);
+  --glow-from: 0.28;
+  --glow-to: 0.5;
+  opacity: var(--glow-from);
+  animation: avatar-glow 5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .avatar-wrapper::before {
+  --glow-from: 0.5;
+  --glow-to: 0.8;
+}
+
+@keyframes avatar-glow {
+  from { opacity: var(--glow-from, 0.28); transform: scale(0.94) rotate(-4deg); }
+  to   { opacity: var(--glow-to,   0.5);  transform: scale(1.06) rotate(4deg); }
+}
+
+.avatar-wrapper .avatar {
+  position: relative;
+  z-index: 1;
+}
+
 
 /* ==============================================
    7. BUTTONS
@@ -494,6 +588,26 @@ img { max-width: 100%; }
 .btn-primary {
   background: var(--accent);
   color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-15deg);
+  transition: left 0s;
+}
+
+.btn-primary:hover::after {
+  left: 160%;
+  transition: left 0.55s ease;
 }
 
 .btn-primary:hover {
@@ -761,65 +875,124 @@ img { max-width: 100%; }
 
 
 /* ==============================================
-   10. SKILLS
+   CARD CURSOR SPOTLIGHT
+   Moving radial glow that follows the mouse
    ============================================== */
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+.bento-card,
+.project-card,
+.skill-group,
+.contact-card {
+  position: relative;
 }
 
-.skill-group {
-  padding: 28px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition: all var(--ease);
+.bento-card::after,
+.project-card::after,
+.project-featured::after,
+.skill-group::after,
+.contact-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    300px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(108, 92, 231, 0.07),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
 }
 
-.skill-group:hover { border-color: var(--accent); }
-
-[data-theme="dark"] .skill-group {
-  background: rgba(24, 24, 31, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+[data-theme="dark"] .bento-card::after,
+[data-theme="dark"] .project-card::after,
+[data-theme="dark"] .project-featured::after,
+[data-theme="dark"] .skill-group::after,
+[data-theme="dark"] .contact-card::after {
+  background: radial-gradient(
+    300px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(167, 139, 250, 0.11),
+    transparent 60%
+  );
 }
 
-.skill-group h3 {
-  font-size: 0.92rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: var(--accent);
+.bento-card:hover::after,
+.project-card:hover::after,
+.project-featured:hover::after,
+.skill-group:hover::after,
+.contact-card:hover::after {
+  opacity: 1;
 }
 
-.skill-tags {
+
+/* ==============================================
+   10. SKILLS — Infinite Marquee Ticker
+   ============================================== */
+.marquee-section {
+  overflow: hidden;
+  /* Fade edges so scroll feels infinite */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.marquee-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  margin-bottom: 14px;
 }
 
-.skill-tags span {
+.marquee-row:last-child { margin-bottom: 0; }
+
+.marquee-inner {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  min-width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+/* Second row scrolls in reverse */
+.marquee-reverse .marquee-inner {
+  animation-direction: reverse;
+  animation-duration: 32s;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Pause on hover — nice touch */
+.marquee-row:hover .marquee-inner {
+  animation-play-state: paused;
+}
+
+.marquee-inner span {
+  display: inline-flex;
+  align-items: center;
   font-size: 0.8rem;
   font-weight: 500;
-  padding: 6px 14px;
-  background: var(--bg2);
+  font-family: var(--font-mono);
+  padding: 8px 18px;
+  background: var(--surface);
   color: var(--text2);
   border-radius: 50px;
   border: 1px solid var(--border);
-  transition: all var(--ease);
+  white-space: nowrap;
   cursor: default;
+  transition: all var(--ease);
+  user-select: none;
 }
 
-.skill-tags span:hover {
+.marquee-inner span:hover {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-bg);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.1);
 }
 
-[data-theme="dark"] .skill-tags span:hover {
-  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.12);
+[data-theme="dark"] .marquee-inner span {
+  background: rgba(24, 24, 31, 0.7);
+  backdrop-filter: blur(8px);
 }
 
 
@@ -989,10 +1162,6 @@ img { max-width: 100%; }
   }
 
   .project-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .skills-grid {
     grid-template-columns: 1fr 1fr;
   }
 

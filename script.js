@@ -387,6 +387,34 @@ document.querySelectorAll('.stat-num[data-target]').forEach(el => {
 });
 
 
+// =============================================
+// 8. CARD CURSOR SPOTLIGHT
+// =============================================
+/*
+  LEARNING NOTE: CSS custom properties + mousemove
+
+  Each card has a CSS variable --spotlight-x and --spotlight-y
+  that tracks where your mouse is relative to the card.
+  The CSS ::after pseudo-element uses these values to draw
+  a radial gradient at the cursor position — a subtle glow
+  that follows your mouse, making cards feel "alive".
+
+  getBoundingClientRect() returns the card's size and position
+  on screen. By subtracting those from the mouse coordinates,
+  we get the cursor position RELATIVE to the card (in pixels).
+*/
+
+document.querySelectorAll(
+  '.bento-card, .project-card, .project-featured, .skill-group, .contact-card'
+).forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--spotlight-x', (e.clientX - rect.left) + 'px');
+    card.style.setProperty('--spotlight-y', (e.clientY - rect.top) + 'px');
+  });
+});
+
+
 /*
   =====================================================
   THAT'S IT! 🎉
