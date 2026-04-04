@@ -288,7 +288,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 const typingTarget = $('typingTarget');
 if (typingTarget) {
   const roles = [
-    'Full-Stack Web Developer',
+    'Junior Full Stack Web Developer',
     'SaaS Builder',
     'Booking System Specialist',
     'AI Automation Specialist'
