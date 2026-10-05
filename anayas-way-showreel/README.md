@@ -6,6 +6,9 @@ A 32-second motion piece for **Anaya's Way Immigration** in two formats, both 60
 |--------|------|-----|
 | Landscape 16:9, 1920×1080 | [`anayas-way-showreel-16x9.mp4`](anayas-way-showreel-16x9.mp4) | Website hero, YouTube, LinkedIn, presentations |
 | Vertical 9:16, 1080×1920 | [`anayas-way-showreel-9x16.mp4`](anayas-way-showreel-9x16.mp4) | Instagram Reels / Stories, TikTok, YouTube Shorts |
+| **Landscape + voiceover** | [`anayas-way-showreel-16x9-voiceover.mp4`](anayas-way-showreel-16x9-voiceover.mp4) | Same picture, narrated, with an embedded English subtitle track |
+| **Vertical + voiceover** | [`anayas-way-showreel-9x16-voiceover.mp4`](anayas-way-showreel-9x16-voiceover.mp4) | Same picture, narrated, with an embedded English subtitle track |
+| Captions | [`anayas-way-showreel.en.srt`](anayas-way-showreel.en.srt) | Upload as closed captions (YouTube, LinkedIn, Facebook, etc.); fits both cuts |
 
 Everything is built in code from one responsive engine. The type, iconography, US map, logo and soundtrack
 (warm D-major piano that builds into a driving beat) are all procedural, so both cuts stay in sync frame for frame.
@@ -28,11 +31,37 @@ and finally the swoosh under the wordmark.
 | 0:21–0:26 | **05 Values** | Attorney-Led · Mission-Driven · Trauma-Informed · Nationwide, each with a drawn-on icon, on a progress rail. *501(c)(3) nonprofit.* |
 | 0:26–0:32 | **Identity + CTA** | The emblem builds (ring, globe, Liberty rising, torch igniting) and the wordmark lands. A cursor clicks **Free Case Review**. *No obligation. No pressure.* Then the URL and the attorney-advertising disclaimer. |
 
+## Voiceover
+
+Narration uses the voice `af_heart` from [Kokoro](https://github.com/thewh1teagle/kokoro-onnx), an open-weight
+neural text-to-speech model that runs offline. The script uses only copy from the website:
+
+| Time | Line |
+|------|------|
+| 0:00 | Serious cases. Structured strategy. Nationwide representation. |
+| 0:04 | Everyone deserves safety, dignity, and a fair chance to present their case. |
+| 0:09 | We represent asylum, U and T visa, VAWA, J-1 waiver, and family immigration cases. |
+| 0:15 | Based in Arkansas, serving clients nationwide. Distance is not a barrier to quality representation. |
+| 0:21 | Attorney-led. · Mission-driven. · Trauma-informed. · Nationwide. *(each on its value's beat)* |
+| 0:27 | Anaya's Way Immigration. |
+| 0:29 | Free case review. *(as the cursor clicks the button)* · No obligation. No pressure. |
+
+- **Pronunciation:** *Anaya's* is set to **ah-NAH-yuhz** with a phoneme override in `voiceover.py` (`OVERRIDES`).
+  Edit that line if the organization says it differently.
+- **Mix:** the voice gets a high-pass, light compression and a little presence. The music is side-chain ducked
+  under it, and the master is set to -14 LUFS / -1.5 dBTP, the usual target for social and web platforms.
+- **Checked by machine:** the final mix was transcribed back with Whisper (base.en). Every line came back
+  as scripted.
+
+Rebuild: `python3 voiceover.py --model kokoro-v1.0.int8.onnx --voices voices-v1.0.bin [--voice af_heart]`,
+then `./mix-voiceover.sh`. Other voices to try: `af_bella`, `af_nicole`, `am_michael`, `bf_emma`.
+
 ## Files
 
 - `index.html` + `showreel.js`: the animation. Serve the folder and open `index.html` (landscape) or
   `index.html?v=1` (vertical). Click to restart; `?t=27.6` freezes a frame.
 - `audio.cjs`: the procedural soundtrack. It writes `out/soundtrack.wav`, which both cuts share.
+- `voiceover.py` + `mix-voiceover.sh`: narration, captions, ducked mix and muxing.
 - `render.cjs`: the headless Chromium (Playwright) to ffmpeg renderer.
 - `us-map.js`: US states (us-atlas / Census, Albers USA) as dots and borders, with Arkansas flagged.
 - `fonts/`: Inter Tight, Inter, Instrument Serif (SIL OFL).
