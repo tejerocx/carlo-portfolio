@@ -1,0 +1,515 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AGH German Pathway Showreel</title>
+<style>
+@font-face{font-family:Mont;font-weight:600;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-600-normal.woff2)}
+@font-face{font-family:Mont;font-weight:700;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:Mont;font-weight:800;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:Mont;font-weight:900;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:500;src:url(node_modules/@fontsource/outfit/files/outfit-latin-500-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:600;src:url(node_modules/@fontsource/outfit/files/outfit-latin-600-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:700;src:url(node_modules/@fontsource/outfit/files/outfit-latin-700-normal.woff2)}
+:root{--navy:#0a1733;--navy2:#13265a;--yellow:#ffc814;--red:#e3262e;--black:#0b0f19;--sky:#8fb3ff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:Outfit,sans-serif;color:#fff}
+#cam{position:absolute;inset:0}
+.full{position:absolute;inset:0}
+.sc{position:absolute;inset:0;overflow:hidden;display:none}
+.c{position:absolute;left:0;top:0;will-change:transform}
+.ch{display:inline-block;white-space:pre}
+.mask{display:block;overflow:hidden;padding:0 14px 6px 0}
+#flash{background:#fff;opacity:0}
+#vig{background:radial-gradient(ellipse at 50% 45%,transparent 58%,rgba(0,0,0,.38) 100%)}
+#grain{inset:-200px;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>")}
+
+/* intro */
+#introBg{background:radial-gradient(circle at 50% 40%,#1b3570 0%,#0a1733 55%,#040a18 100%)}
+.slash{position:absolute;left:0;top:0;width:150px;height:1500px;border-radius:12px;transform-origin:50% 100%}
+#gTxt{text-align:center;white-space:nowrap}
+#g1{font-family:Mont;font-weight:900;font-size:168px;line-height:.9;letter-spacing:-5px}
+#g2{font-family:Mont;font-weight:900;font-size:118px;line-height:1;letter-spacing:-3px;color:var(--yellow)}
+#trail{position:absolute;inset:0}
+
+/* photo scenes */
+.photo{position:absolute;left:0;top:0;width:1080px;height:1919px;background-size:cover;transform-origin:50% 60%}
+#topGrad{background:linear-gradient(180deg,rgba(6,14,36,.78) 0%,rgba(6,14,36,.45) 22%,rgba(6,14,36,0) 40%)}
+#botGrad{background:linear-gradient(0deg,rgba(4,10,26,.92) 0%,rgba(4,10,26,.6) 22%,rgba(4,10,26,0) 42%)}
+#leak{mix-blend-mode:screen}
+#dust{mix-blend-mode:screen}
+.hd{left:80px;top:250px;position:absolute}
+.pill{display:inline-flex;align-items:center;gap:14px;padding:12px 24px;border-radius:999px;background:rgba(10,23,51,.55);border:2px solid rgba(255,200,20,.75);font-family:Mont;font-weight:800;font-size:28px;letter-spacing:.18em;color:var(--yellow)}
+.pill i{width:14px;height:14px;border-radius:50%;background:var(--yellow);box-shadow:0 0 14px var(--yellow)}
+.hl{margin-top:22px;font-family:Mont;font-weight:900;font-size:132px;line-height:.95;letter-spacing:-4px;color:var(--yellow);text-shadow:0 10px 40px rgba(0,0,0,.45);white-space:nowrap}
+.hl .w{display:inline-block}
+#bug{width:200px;height:200px;background:url(assets/logo_light.png) center/contain no-repeat;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
+#foot{position:absolute;left:80px;right:80px;top:1790px;display:flex;justify-content:space-between;align-items:center;font-family:Outfit;font-weight:600;font-size:34px}
+#cnt{display:flex;gap:8px;align-items:center;font-weight:700}
+#cnt b{display:inline-block;height:42px;overflow:hidden;vertical-align:top}
+#cnt b span{display:block;height:42px;line-height:42px}
+#bar{position:absolute;left:80px;right:80px;top:1858px;height:10px;border-radius:5px;background:rgba(255,255,255,.22)}
+#barF{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--yellow);box-shadow:0 0 16px rgba(255,200,20,.7);transform-origin:left}
+.dot{position:absolute;top:-7px;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#2a3658;border:4px solid rgba(255,255,255,.5)}
+
+/* scene 2: route */
+#route{position:absolute;inset:0}
+.pin{display:flex;align-items:center;gap:14px;padding:16px 26px;border-radius:999px;background:rgba(10,23,51,.78);border:2px solid rgba(143,179,255,.6);font-family:Mont;font-weight:800;font-size:30px;letter-spacing:.06em;white-space:nowrap;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.pin i{width:20px;height:20px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 6px rgba(255,200,20,.25)}
+#goal{display:flex;flex-direction:column;align-items:center}
+#goal .flag{padding:14px 26px;border-radius:18px;background:var(--yellow);color:var(--navy);font-family:Mont;font-weight:900;font-size:34px;letter-spacing:.04em;white-space:nowrap;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+#goal .stick{width:6px;height:90px;background:var(--yellow);border-radius:3px}
+#goal .base{width:30px;height:30px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 10px rgba(255,200,20,.3),0 0 40px var(--yellow)}
+
+/* scene 3: opportunity card */
+#cardWrap{width:860px;height:540px;perspective:1800px}
+#card{position:absolute;inset:0;border-radius:40px;background:linear-gradient(135deg,#12285e 0%,#0a1733 55%,#1d3d86 100%);border:2px solid rgba(255,255,255,.18);box-shadow:0 50px 120px rgba(0,0,0,.6);overflow:hidden;font-family:Mont}
+#card .stp{position:absolute;left:0;top:0;bottom:0;width:26px;display:flex;flex-direction:column}
+#card .stp i{flex:1}
+#card .chip{position:absolute;left:76px;top:70px;width:110px;height:84px;border-radius:16px;background:linear-gradient(135deg,#ffe27a,#d9a10b);box-shadow:inset 0 0 0 3px rgba(0,0,0,.15)}
+#card .chip:after{content:'';position:absolute;left:18px;right:18px;top:40px;height:3px;background:rgba(0,0,0,.2)}
+#card .de{position:absolute;right:56px;top:68px;font-weight:700;font-size:26px;letter-spacing:.22em;color:var(--sky)}
+#card .t1{position:absolute;left:76px;top:196px;font-weight:900;font-size:76px;line-height:.95;letter-spacing:-2px}
+#card .t2{position:absolute;left:80px;top:362px;font-family:Outfit;font-weight:500;font-size:34px;color:#c9d6f5;font-style:italic}
+#card .t3{position:absolute;left:76px;bottom:50px;font-weight:800;font-size:27px;letter-spacing:.08em;color:var(--yellow)}
+#card .t4{position:absolute;right:50px;bottom:40px;font-weight:700;font-size:21px;letter-spacing:.06em;color:#fff;padding:10px 18px;border-radius:12px;border:2px solid rgba(255,255,255,.4)}
+#card .hlU{position:absolute;right:56px;bottom:36px;height:6px;background:var(--yellow);border-radius:3px;transform-origin:left}
+#sheen{position:absolute;inset:-50%;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.28) 50%,transparent 58%)}
+#req{font-family:Outfit;font-weight:600;font-size:34px;color:#fff;padding:12px 26px;border-radius:999px;background:rgba(10,23,51,.6);border:2px solid rgba(255,255,255,.35);white-space:nowrap}
+
+/* scene 4: checklist */
+.chk{display:flex;align-items:center;gap:20px;padding:20px 32px 20px 20px;border-radius:999px;background:rgba(255,255,255,.95);color:var(--navy);font-family:Mont;font-weight:800;font-size:36px;white-space:nowrap;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.chk .cb{width:58px;height:58px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center}
+
+/* end card */
+#endBg{background:radial-gradient(circle at 50% 35%,#ffffff 0%,#f3f6fc 55%,#dfe7f6 100%)}
+.lgL{position:absolute;left:0;top:0;width:760px;height:760px;background:url(assets/logo.png) 0 0/760px 760px no-repeat}
+#logoBox{width:760px;height:760px}
+#lbTrack{position:absolute;left:142px;top:673px;width:480px;height:20px;border-radius:10px;background:#dfe8f8}
+#lbFill{position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:10px;background:var(--yellow);transform-origin:left}
+#cta{font-family:Mont;font-weight:900;font-size:64px;line-height:1.05;color:var(--navy);letter-spacing:-1px;text-align:center;white-space:nowrap}
+#cta span{color:#d79f00}
+#phoneP{display:flex;align-items:center;gap:22px;padding:24px 46px 24px 26px;border-radius:999px;background:var(--navy);font-family:Mont;font-weight:800;font-size:60px;white-space:nowrap;box-shadow:0 30px 70px rgba(10,23,51,.35)}
+#phoneP .ic{width:78px;height:78px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center}
+#web{font-family:Outfit;font-weight:700;font-size:44px;color:var(--navy);white-space:nowrap}
+.cornerStr{position:absolute;width:90px;height:1200px;border-radius:10px}
+
+/* stripe wipe */
+#wipe{pointer-events:none}
+.ws{position:absolute;top:-240px;height:2400px;transform:skewX(-20deg)}
+
+/* captions */
+#cap{position:absolute;left:0;top:0;width:960px;text-align:center}
+#capIn{display:inline-block}
+#cap .cw{display:inline-block;margin:0 10px;font-family:Mont;font-weight:900;font-size:78px;line-height:1.08;letter-spacing:-1px;text-transform:uppercase;color:#fff;-webkit-text-stroke:14px #08132b;paint-order:stroke fill;text-shadow:0 8px 24px rgba(0,0,0,.45)}
+#cap .cw.on{color:var(--yellow)}
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="cam">
+
+<!-- INTRO -->
+<section class="sc" id="sI">
+  <div class="full" id="introBg"></div>
+  <div class="c slash" id="sl0" style="background:#05080f"></div>
+  <div class="c slash" id="sl1" style="background:var(--red)"></div>
+  <div class="c slash" id="sl2" style="background:var(--yellow)"></div>
+  <div class="c slash" id="sl3" style="background:var(--sky);width:60px"></div>
+  <svg id="trail" viewBox="0 0 1080 1920"><path id="trailP" d="M -60 1260 C 260 1180, 380 1420, 620 1260 S 980 980, 1180 1040" fill="none" stroke="rgba(143,179,255,.85)" stroke-width="8" stroke-dasharray="26 22" stroke-linecap="round"/></svg>
+  <div class="c" id="plane1"></div>
+  <div class="c" id="gTxt"><div class="mask"><div id="g1">GERMANY</div></div><div class="mask"><div id="g2">IS CALLING!</div></div></div>
+</section>
+
+<!-- PHOTO SCENES -->
+<section class="sc" id="sP">
+  <div class="photo" id="ph0" style="background-image:url(assets/bg8.jpg)"></div>
+  <div class="photo" id="ph1" style="background-image:url(assets/bg7.jpg)"></div>
+  <div class="photo" id="ph2" style="background-image:url(assets/bg6.jpg)"></div>
+  <div class="photo" id="ph3" style="background-image:url(assets/bg9.jpg)"></div>
+  <canvas class="full" id="leak" width="540" height="960" style="width:1080px;height:1920px"></canvas>
+  <div class="full" id="topGrad"></div>
+  <div class="full" id="botGrad"></div>
+  <canvas class="full" id="dust" width="1080" height="1920"></canvas>
+
+  <!-- scene 2 route -->
+  <svg id="route" viewBox="0 0 1080 1920"><path id="routeP" d="M 120 1960 C 160 1700, 420 1720, 360 1500 S 220 1250, 520 1160" fill="none" stroke="#ffc814" stroke-width="10" stroke-dasharray="30 22" stroke-linecap="round" style="filter:drop-shadow(0 0 10px rgba(255,200,20,.8))"/></svg>
+  <div class="c" id="goal"><div class="flag">YOUR GOAL</div><div class="stick"></div><div class="base"></div></div>
+  <div class="c pin" id="pin0"><i></i>QUALIFICATIONS</div>
+  <div class="c pin" id="pin1"><i></i>PLANS</div>
+
+  <!-- scene 3 card -->
+  <div class="c" id="cardWrap"><div id="card">
+    <div class="stp"><i style="background:#05080f"></i><i style="background:var(--red)"></i><i style="background:var(--yellow)"></i></div>
+    <div class="chip"></div><div class="de">DEUTSCHLAND</div>
+    <div class="t1">OPPORTUNITY<br>CARD</div>
+    <div class="t2">Chancenkarte</div>
+    <div class="t3">JOB-SEARCH ROUTE</div>
+    <div class="t4">ELIGIBLE APPLICANTS</div><div class="hlU" id="hlU" style="width:262px;right:50px;bottom:28px"></div>
+    <div id="sheen"></div>
+  </div></div>
+  <div class="c" id="req">Requirements apply.</div>
+
+  <!-- scene 4 checklist -->
+  <div class="c chk" id="ck0"><div class="cb"><svg width="34" height="34" viewBox="0 0 24 24"><path class="ckp" d="M4 12.5l5 5 11-11" fill="none" stroke="#ffc814" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="24" stroke-dashoffset="24"/></svg></div>Check your route</div>
+  <div class="c chk" id="ck1"><div class="cb"><svg width="34" height="34" viewBox="0 0 24 24"><path class="ckp" d="M4 12.5l5 5 11-11" fill="none" stroke="#ffc814" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="24" stroke-dashoffset="24"/></svg></div>Prepare your next step</div>
+
+  <!-- headlines -->
+  <div class="hd" id="hd0"><div class="pill"><i></i>BEFORE YOU PLAN</div><div class="hl"><div class="mask"><span class="w">JOB</span> <span class="w">OFFER</span></div><div class="mask"><span class="w">FIRST?</span></div></div></div>
+  <div class="hd" id="hd1"><div class="pill"><i></i>EXPLORE ROUTES</div><div class="hl"><div class="mask"><span class="w">START</span> <span class="w">WITH</span></div><div class="mask"><span class="w">YOUR</span> <span class="w">GOAL.</span></div></div></div>
+  <div class="hd" id="hd2"><div class="pill"><i></i>OPPORTUNITY CARD</div><div class="hl"><div class="mask"><span class="w">NO</span> <span class="w">OFFER</span></div><div class="mask"><span class="w">YET?</span></div></div></div>
+  <div class="hd" id="hd3"><div class="pill"><i></i>NEXT STEP</div><div class="hl"><div class="mask"><span class="w">YOUR</span> <span class="w">NEXT</span></div><div class="mask"><span class="w">CHAPTER.</span></div></div></div>
+  <div class="c" id="bug"></div>
+</section>
+
+<!-- END CARD -->
+<section class="sc" id="sE">
+  <div class="full" id="endBg"></div>
+  <div class="c cornerStr" id="cs0" style="background:#0b0f19"></div>
+  <div class="c cornerStr" id="cs1" style="background:var(--red)"></div>
+  <div class="c cornerStr" id="cs2" style="background:var(--yellow)"></div>
+  <div class="c" id="logoBox">
+    <div class="lgL" id="lgStripes"></div>
+    <div class="lgL" id="lgBuild"></div>
+    <div class="lgL" id="lgPlane"></div>
+    <div class="lgL" id="lgAGH"></div>
+    <div class="lgL" id="lgGP"></div>
+    <div id="lbTrack"><div id="lbFill"></div></div>
+  </div>
+  <div class="c" id="cta">MESSAGE<br><span>AGH GERMAN PATHWAY</span></div>
+  <div class="c" id="phoneP"><div class="ic"><svg width="42" height="42" viewBox="0 0 24 24"><path d="M4 5c0-1 1-2 2-2h2l2 5-2 1c1 3 3 5 6 6l1-2 5 2v2c0 1-1 2-2 2C10 19 4 13 4 5z" fill="#0a1733"/></svg></div>+971 50 441 8859</div>
+  <div class="c" id="web">aghgermanpathway.com</div>
+</section>
+
+<div class="full" id="foot2">
+  <div id="foot"><span id="url">aghgermanpathway.com</span><span id="cnt"><b><span>01</span><span>02</span><span>03</span><span>04</span></b>&nbsp;/ 04</span></div>
+  <div id="bar"><div id="barF"></div><div class="dot" style="left:0%"></div><div class="dot" style="left:33.33%"></div><div class="dot" style="left:66.66%"></div><div class="dot" style="left:100%"></div></div>
+</div>
+<div id="cap"><div id="capIn"></div></div>
+
+<div class="full" id="wipe">
+  <div class="ws" id="ws0" style="width:700px;background:#05080f"></div>
+  <div class="ws" id="ws1" style="width:700px;background:var(--red)"></div>
+  <div class="ws" id="ws2" style="width:700px;background:var(--yellow)"></div>
+  <div class="ws" id="ws3" style="width:120px;background:var(--sky)"></div>
+</div>
+</div>
+<div class="full" id="vig"></div>
+<div class="full" id="flash"></div>
+<div class="full" id="grain"></div>
+</div>
+
+<script src="timing.js"></script>
+<script>
+/* Deterministic motion engine: every visual is a pure function of t. */
+const $ = id => document.getElementById(id);
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const L = (a, b, k) => a + (b - a) * k;
+const E = {
+  lin: x => x,
+  o3: x => 1 - Math.pow(1 - x, 3),
+  io3: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  oX: x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x),
+  iX: x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10),
+  ioX: x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2,
+  oB: x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+  oB2: x => { const c1 = 2.8, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+};
+const P = (t, a, b, e = E.lin) => e(clamp((t - a) / (b - a)));
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function T(el, o) {
+  let tr = `translate(${(o.x || 0).toFixed(2)}px,${(o.y || 0).toFixed(2)}px) translate(-50%,-50%)`;
+  if (o.rx || o.ry) tr += ` rotateX(${o.rx || 0}deg) rotateY(${o.ry || 0}deg)`;
+  if (o.r) tr += ` rotate(${o.r}deg)`;
+  const s = o.s ?? 1, sx = s * (o.sx ?? 1), sy = s * (o.sy ?? 1);
+  if (sx !== 1 || sy !== 1) tr += ` scale(${sx.toFixed(4)},${sy.toFixed(4)})`;
+  el.style.transform = tr; el.style.opacity = o.o ?? 1;
+  el.style.filter = o.blur > .05 ? `blur(${o.blur.toFixed(2)}px)` : '';
+}
+function F(el, tr, o = 1, blur = 0) { el.style.transform = tr; el.style.opacity = o; el.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : ''; }
+const show = (el, on, d = 'block') => { el.style.display = on ? d : 'none'; };
+function splitChars(el) {
+  const out = [];
+  const walk = node => [...node.childNodes].forEach(n => {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      [...n.textContent].forEach(c => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; frag.appendChild(s); out.push(s); });
+      node.replaceChild(frag, n);
+    } else walk(n);
+  });
+  walk(el); return out;
+}
+/* time at which a caption word is spoken (first match at/after `after`) */
+function wt(word, after = 0) {
+  for (const c of window.CAPS) for (const [w, s] of c.w) if (s >= after && w.toLowerCase().replace(/[^a-z]/g, '') === word) return s;
+  return 0;
+}
+
+/* ---------- timeline ---------- */
+const CUTS = [2.0, 6.0, 10.5, 16.0, 20.0];   // stripe-wipe midpoints (on the beat, 120 BPM)
+const DUR = 24.5;
+const W = {};
+const S = {};
+
+function init() {
+  S.g1 = splitChars($('g1')); S.g2 = splitChars($('g2'));
+  S.hd = [0, 1, 2, 3].map(i => [...$('hd' + i).querySelectorAll('.w')]);
+  S.cnt = $('cnt').querySelector('b').firstElementChild;
+  const planeCss = 'width:170px;height:90px;background:url(assets/logo.png) -830px -238px/1254px 1254px no-repeat';
+  $('plane1').style.cssText += planeCss;
+  // end card logo layers: one image, five clip regions (in 760px logo space)
+  const k = 760 / 1254, poly = pts => 'polygon(' + pts.map(([x, y]) => `${(x * k).toFixed(1)}px ${(y * k).toFixed(1)}px`).join(',') + ')';
+  $('lgStripes').style.clipPath = poly([[250, 110], [800, 110], [800, 420], [660, 420], [660, 790], [250, 790]]);
+  $('lgBuild').style.clipPath = poly([[660, 420], [945, 420], [945, 720], [660, 720]]);
+  $('lgPlane').style.clipPath = poly([[820, 230], [1010, 230], [1010, 340], [820, 340]]);
+  $('lgAGH').style.clipPath = poly([[240, 780], [990, 780], [990, 1005], [240, 1005]]);
+  $('lgGP').style.clipPath = poly([[200, 1015], [1045, 1015], [1045, 1095], [200, 1095]]);
+  S.routeLen = $('routeP').getTotalLength();
+  S.trailLen = $('trailP').getTotalLength();
+  const R = rng(11);
+  S.dust = Array.from({ length: 60 }, () => ({ x: R() * 1080, y: R() * 1920, r: 1.5 + R() * 4.5, sp: 15 + R() * 50, a: .25 + R() * .6, ph: R() * 6 }));
+  window.READY = true;
+}
+
+const IMPACTS = [[.46, 26], [.85, 10], [2.2, 14], [6.2, 14], [6.9, 8], [10.65, 16], [11.75, 12], [16.15, 14], [20.65, 10]];
+const FLASHES = [[.46, .6], [20.0, .35]];
+
+function render(t) {
+  let A = 0; IMPACTS.forEach(([ti, amp]) => { if (t >= ti) A += amp * Math.exp(-(t - ti) * 11); });
+  $('cam').style.transform = `translate(${(A * Math.sin(t * 93)).toFixed(2)}px,${(A * Math.cos(t * 71)).toFixed(2)}px)`;
+  let fl = 0; FLASHES.forEach(([ti, a]) => { if (t >= ti) fl = Math.max(fl, a * Math.exp(-(t - ti) * 9)); });
+  $('flash').style.opacity = fl.toFixed(3);
+  $('grain').style.transform = `translate(${(Math.floor(t * 30) * 37 % 200) - 100}px,${(Math.floor(t * 30) * 61 % 200) - 100}px)`;
+  intro(t); photos(t); endCard(t); chrome(t); captions(t); wipe(t);
+}
+
+/* ---------- stripe wipe (brand transition) ---------- */
+function wipe(t) {
+  let k = -1;
+  CUTS.forEach(c => { if (t >= c - .3 && t <= c + .3) k = (t - (c - .3)) / .6; });
+  show($('wipe'), k >= 0);
+  if (k < 0) return;
+  const e = E.ioX(k);
+  const Lx = L(-2600, 1700, e);
+  // gold leads, then red, black trails; thin sky-blue accent ahead
+  [['ws2', 1400], ['ws1', 700], ['ws0', 0], ['ws3', 2140]].forEach(([id, off], i) => {
+    const lag = (i === 3 ? -40 : i * 30) * Math.sin(Math.PI * e);
+    $(id).style.left = (Lx + off - lag).toFixed(1) + 'px';
+  });
+}
+
+/* ---------- INTRO 0 – 2.0 ---------- */
+function intro(t) {
+  show($('sI'), t < 2.02); if (t >= 2.02) return;
+  // logo-like swooshes behind the type
+  [['sl0', 0, 760], ['sl1', .06, 905], ['sl2', .12, 1050], ['sl3', .18, 1160]].forEach(([id, d, x]) => {
+    const k = P(t, .05 + d, .5 + d, E.oX);
+    T($(id), { x: x - 300, y: 1120, r: 24, sy: k, o: 1 });
+    $(id).style.transformOrigin = '50% 100%';
+  });
+  // GERMANY slam
+  const kg = P(t, .46, .8, E.oX);
+  T($('gTxt'), { x: 540, y: 900, s: L(1, 1.05, P(t, .8, 2)) });
+  F($('g1'), `scale(${L(1.9, 1, kg).toFixed(3)})`, P(t, .46, .52), (1 - kg) * 14);
+  $('g1').style.transformOrigin = '50% 50%';
+  S.g2.forEach((c, i) => { const k = P(t, .8 + i * .03, 1.12 + i * .03, E.oB2); F(c, `translateY(${L(150, 0, k).toFixed(1)}px)`, P(t, .8 + i * .03, .86 + i * .03)); });
+  // plane draws the pathway
+  const kp = P(t, .25, 1.75, E.io3);
+  const pt = $('trailP').getPointAtLength(kp * S.trailLen), pt2 = $('trailP').getPointAtLength(Math.min(S.trailLen, kp * S.trailLen + 4));
+  const ang = Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180 / Math.PI;
+  T($('plane1'), { x: pt.x, y: pt.y, r: ang, s: 1.3, o: kp > 0 && kp < 1 ? 1 : 0 });
+  $('trailP').style.strokeDashoffset = 0;
+  $('trail').style.clipPath = `inset(0 ${(1080 - pt.x).toFixed(0)}px 0 0)`;
+}
+
+/* ---------- PHOTO SCENES 2.0 – 20.0 ---------- */
+const SCN = [[2.0, 6.0], [6.0, 10.5], [10.5, 16.0], [16.0, 20.0]];
+function photos(t) {
+  const on = t >= 1.98 && t < 20.02; show($('sP'), on); if (!on) return;
+  const si = t < 6 ? 0 : t < 10.5 ? 1 : t < 16 ? 2 : 3;
+  const [a, b] = SCN[si];
+  const p = (t - a) / (b - a);
+  // Ken Burns per plate, different move each time
+  const moves = [[1.28, 1.08, 0, -40, -1.2, 0], [1.08, 1.24, -30, 20, 0, 0], [1.22, 1.07, 40, -20, 0, 1], [1.12, 1.26, 0, 30, .8, -.4]];
+  for (let i = 0; i < 4; i++) {
+    const el = $('ph' + i); el.style.display = i === si ? 'block' : 'none';
+    if (i !== si) continue;
+    const [s0, s1, x0, y0, r0, r1] = moves[i];
+    const e = E.io3(p * .5 + .25) * 2 - .5; // gentle S over the shot
+    const punch = 1 + .05 * Math.exp(-(t - a) * 5);
+    el.style.transform = `translate(${L(x0, -x0, e).toFixed(1)}px,${L(y0, -y0, e).toFixed(1)}px) scale(${(L(s0, s1, e) * punch).toFixed(4)}) rotate(${L(r0, r1, e).toFixed(2)}deg)`;
+  }
+  // warm light leak drifting
+  const lc = $('leak').getContext('2d'); lc.clearRect(0, 0, 540, 960);
+  const lx = 270 + Math.sin(t * .7) * 220, ly = 480 + Math.cos(t * .5) * 200;
+  const g = lc.createRadialGradient(lx, ly, 0, lx, ly, 420);
+  g.addColorStop(0, 'rgba(255,170,60,.22)'); g.addColorStop(1, 'rgba(255,120,40,0)');
+  lc.fillStyle = g; lc.fillRect(0, 0, 540, 960);
+  // golden dust
+  const dc = $('dust').getContext('2d'); dc.clearRect(0, 0, 1080, 1920);
+  S.dust.forEach(d => {
+    const y = ((d.y - t * d.sp) % 1920 + 1920) % 1920;
+    dc.fillStyle = `rgba(255,214,120,${(d.a * (.5 + .5 * Math.sin(t * 3 + d.ph))).toFixed(3)})`;
+    dc.beginPath(); dc.arc(d.x + Math.sin(t * .8 + d.ph) * 30, y, d.r, 0, 7); dc.fill();
+  });
+  // headlines
+  S.hd.forEach((words, i) => {
+    const el = $('hd' + i);
+    const [ha, hb] = SCN[i];
+    el.style.display = t >= ha - .05 && t < hb + .05 ? 'block' : 'none';
+    if (el.style.display === 'none') return;
+    const tin = ha + .15;
+    const pill = el.querySelector('.pill');
+    const kp = P(t, tin - .05, tin + .3, E.oB2);
+    F(pill, `translateX(${L(-60, 0, kp).toFixed(1)}px) scale(${kp.toFixed(3)})`, kp);
+    pill.style.transformOrigin = '0 50%';
+    words.forEach((w, j) => {
+      const k = P(t, tin + .08 + j * .07, tin + .5 + j * .07, E.oX);
+      const out = P(t, hb - .32 + j * .02, hb - .12 + j * .02, E.iX);
+      F(w, `translateY(${(L(115, 0, k) - out * 115).toFixed(1)}%) rotate(${L(6, 0, k).toFixed(2)}deg)`);
+    });
+    const breathe = 1 + .015 * Math.sin((t - ha) * 2.4);
+    el.style.transform = `scale(${breathe.toFixed(4)})`; el.style.transformOrigin = '0 0';
+  });
+  // logo bug
+  const kb = P(t, 2.2, 2.6, E.oB2);
+  T($('bug'), { x: 920, y: 200, s: kb, r: L(-30, 0, kb) });
+
+  scene2(t); scene3(t); scene4(t);
+}
+
+function scene2(t) {
+  const on = t >= 6.0 && t < 10.55;
+  ['route', 'goal', 'pin0', 'pin1'].forEach(id => show($(id), on, id.startsWith('pin') ? 'flex' : (id === 'goal' ? 'flex' : 'block')));
+  if (!on) return;
+  const tg = wt('goal', 6);
+  const kg = P(t, tg - .05, tg + .35, E.oB2);
+  T($('goal'), { x: 520, y: 1060 + Math.sin(t * 2) * 6, s: kg, o: kg > 0 ? 1 : 0 });
+  $('goal').style.transformOrigin = '50% 100%';
+  const kr = P(t, 7.2, 9.9, E.io3);
+  const P0 = $('routeP');
+  P0.style.strokeDasharray = `30 22`;
+  $('route').style.clipPath = 'none';
+  // reveal the dashed route progressively with a mask-like dash trick
+  const len = S.routeLen;
+  P0.setAttribute('stroke-dasharray', `${(kr * len).toFixed(1)} ${len}`);
+  P0.setAttribute('stroke-dashoffset', '0');
+  P0.style.strokeDasharray = '';
+  const tq = wt('qualifications', 7), tpl = wt('plans', 7);
+  [[0, tq, 290, 1330], [1, tpl, 800, 1250]].forEach(([i, ts, x, y]) => {
+    const k = P(t, ts - .05, ts + .35, E.oB2);
+    T($('pin' + i), { x: x + Math.sin(t * 1.5 + i) * 6, y: y + Math.cos(t * 1.8 + i) * 6, s: k, r: L(i ? 10 : -10, 0, k) });
+  });
+  const out = P(t, 10.15, 10.35, E.iX);
+  ['goal', 'pin0', 'pin1'].forEach(id => { if (out > 0) $(id).style.opacity = 1 - out; });
+}
+
+function scene3(t) {
+  const on = t >= 10.5 && t < 16.05;
+  show($('cardWrap'), on); show($('req'), on); if (!on) return;
+  const to = wt('opportunity', 11);
+  const kc = P(t, to - .1, to + .55, E.oB);
+  const float = Math.sin(t * 1.8);
+  T($('cardWrap'), { x: 540, y: L(1500, 1080, kc) + float * 8, s: L(.5, 1, kc), o: P(t, to - .1, to) });
+  $('card').style.transform = `rotateY(${(L(-100, 0, kc) + float * 6).toFixed(2)}deg) rotateX(${(L(30, 6, kc) + Math.cos(t * 1.4) * 3).toFixed(2)}deg)`;
+  const sh = P(t, to + .5, to + 1.3, E.io3) + P(t, 14.2, 15.0, E.io3);
+  $('sheen').style.transform = `translateX(${L(-70, 70, sh % 1 || (sh >= 1 ? 1 : 0)).toFixed(1)}%)`;
+  const te = wt('eligible', 12);
+  F($('hlU'), `scaleX(${P(t, te, te + .35, E.o3).toFixed(3)})`);
+  const kq = P(t, to + .6, to + 1.0, E.oB);
+  T($('req'), { x: 540, y: 1405, s: kq, o: kq > 0 ? 1 : 0 });
+}
+
+function scene4(t) {
+  const on = t >= 16.0 && t < 20.05;
+  show($('ck0'), on, 'flex'); show($('ck1'), on, 'flex'); if (!on) return;
+  [[0, wt('check', 16), 1210], [1, wt('prepare', 16), 1340]].forEach(([i, ts, y]) => {
+    const el = $('ck' + i);
+    const k = P(t, ts - .1, ts + .35, E.oB2);
+    T(el, { x: L(-400, 80, k), y, o: k > 0 ? 1 : 0 });
+    el.style.transform += ' translate(50%,0)';
+    el.querySelector('.ckp').setAttribute('stroke-dashoffset', (24 * (1 - P(t, ts + .15, ts + .4, E.o3))).toFixed(1));
+  });
+}
+
+/* ---------- END CARD 20.0 – 24.5 ---------- */
+function endCard(t) {
+  const on = t >= 19.98; show($('sE'), on); if (!on) return;
+  [['cs0', 0, -30], ['cs1', .06, 80], ['cs2', .12, 190]].forEach(([id, d, x], i) => {
+    const k = P(t, 20.1 + d, 20.6 + d, E.oX);
+    T($(id), { x: x - 90, y: L(2700, 2200, k), r: 24 });
+  });
+  const lx = 540, ly = 560;
+  T($('logoBox'), { x: lx, y: ly + Math.sin(t * 2) * 4, s: L(1, .96, P(t, 21, 24.5)) });
+  const ks = P(t, 20.15, 20.7, E.oX);
+  F($('lgStripes'), `translate(${L(-120, 0, ks).toFixed(1)}px,${L(260, 0, ks).toFixed(1)}px) skewX(${L(-14, 0, ks).toFixed(2)}deg)`, P(t, 20.15, 20.25));
+  const kb = P(t, 20.5, 20.85, E.oB2);
+  F($('lgBuild'), `translateY(${L(80, 0, kb).toFixed(1)}px)`, kb > 0 ? 1 : 0);
+  $('lgBuild').style.transform += ` scale(${kb.toFixed(3)})`; $('lgBuild').style.transformOrigin = '480px 400px';
+  const kpl = P(t, 20.55, 21.0, E.oX);
+  F($('lgPlane'), `translate(${L(-560, 0, kpl).toFixed(1)}px,${L(240, 0, kpl).toFixed(1)}px)`, kpl > 0 ? 1 : 0);
+  const ka = P(t, 20.65, 21.05, E.oX);
+  $('lgAGH').style.clipPath = $('lgAGH').style.clipPath; // keep region
+  F($('lgAGH'), `translateY(${L(120, 0, ka).toFixed(1)}px)`, P(t, 20.65, 20.8));
+  const kgp = P(t, 20.85, 21.35, E.o3);
+  F($('lgGP'), `scaleX(${L(.7, 1, kgp).toFixed(3)})`, kgp); $('lgGP').style.transformOrigin = '380px 640px';
+  F($('lbTrack'), 'none', P(t, 20.95, 21.1));
+  F($('lbFill'), `scaleX(${P(t, 21.05, 21.9, E.io3).toFixed(3)})`);
+  const kc = P(t, 21.3, 21.7, E.oB);
+  T($('cta'), { x: 540, y: 1040, s: kc, o: kc > 0 ? 1 : 0 });
+  const kph = P(t, 21.55, 22.0, E.oB2);
+  T($('phoneP'), { x: 540, y: 1225, s: kph * (1 + .025 * Math.sin(t * 5) * P(t, 22.2, 22.5)), o: kph > 0 ? 1 : 0 });
+  const kw = P(t, 21.8, 22.2, E.oB);
+  T($('web'), { x: 540, y: 1355, o: kw, s: L(.8, 1, kw) });
+}
+
+/* ---------- persistent chrome: footer, counter, pathway progress ---------- */
+function chrome(t) {
+  const on = t >= 2.0 && t < 20.0;
+  $('foot2').style.display = on ? 'block' : 'none';
+  if (!on) return;
+  const kin = P(t, 2.15, 2.6, E.oX);
+  $('foot2').style.opacity = kin;
+  const sf = t < 5.8 ? 0 : t < 6.2 ? E.ioX((t - 5.8) / .4) : t < 10.3 ? 1 : t < 10.7 ? 1 + E.ioX((t - 10.3) / .4) : t < 15.8 ? 2 : t < 16.2 ? 2 + E.ioX((t - 15.8) / .4) : 3;
+  S.cnt.style.marginTop = (-sf * 42).toFixed(1) + 'px';
+  $('barF').style.transform = `scaleX(${clamp((t - 2) / 18).toFixed(4)})`;
+  $('barF').style.width = '100%';
+  [...document.querySelectorAll('#bar .dot')].forEach((d, i) => {
+    const lit = sf >= i - .5;
+    d.style.background = lit ? 'var(--yellow)' : '#2a3658';
+    d.style.borderColor = lit ? '#fff' : 'rgba(255,255,255,.5)';
+    const pop = lit ? 1 + .4 * Math.exp(-Math.max(0, t - [2, 6, 10.5, 16][i]) * 6) : 1;
+    d.style.transform = `scale(${pop.toFixed(3)})`;
+  });
+}
+
+/* ---------- word-by-word captions ---------- */
+let lastChunk = -1;
+function captions(t) {
+  const caps = window.CAPS;
+  let ci = -1;
+  caps.forEach((c, i) => { if (t >= c.a - .02 && t < c.end) ci = i; });
+  const box = $('capIn');
+  if (ci < 0) { box.innerHTML = ''; lastChunk = -1; return; }
+  const c = caps[ci];
+  if (ci !== lastChunk) { box.innerHTML = c.w.map(([w]) => `<span class="cw">${w}</span>`).join(' '); lastChunk = ci; }
+  const k = P(t, c.a - .02, c.a + .16, E.oB2);
+  const endCard = t >= 20;
+  T($('cap'), { x: 540, y: endCard ? 1560 : 1555, s: L(.82, 1, k) });
+  $('cap').style.left = '0px'; $('cap').style.width = '960px';
+  [...box.children].forEach((sp, j) => {
+    const ws = c.w[j][1], we = j + 1 < c.w.length ? c.w[j + 1][1] : c.end;
+    const on = t >= ws && t < we;
+    sp.className = 'cw' + (on ? ' on' : '');
+    const kk = P(t, ws, ws + .14, E.oB2);
+    const sc = on ? L(1, 1.12, kk) - .04 * P(t, ws + .14, ws + .3) : 1;
+    sp.style.transform = `scale(${sc.toFixed(3)}) rotate(${on ? -2 : 0}deg)`;
+    sp.style.opacity = t >= ws - .02 ? 1 : .78;
+  });
+}
+
+document.fonts.ready.then(() => { init(); render(0); });
+</script>
+</body>
+</html>
