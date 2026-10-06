@@ -1,0 +1,970 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Smash Grove Showreel</title>
+<style>
+@font-face{font-family:Outfit;font-weight:400;src:url(node_modules/@fontsource/outfit/files/outfit-latin-400-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:500;src:url(node_modules/@fontsource/outfit/files/outfit-latin-500-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:600;src:url(node_modules/@fontsource/outfit/files/outfit-latin-600-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:700;src:url(node_modules/@fontsource/outfit/files/outfit-latin-700-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:800;src:url(node_modules/@fontsource/outfit/files/outfit-latin-800-normal.woff2)}
+@font-face{font-family:Outfit;font-weight:900;src:url(node_modules/@fontsource/outfit/files/outfit-latin-900-normal.woff2)}
+@font-face{font-family:Bebas;src:url(node_modules/@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2)}
+:root{--deep:#06130a;--deep2:#0d2414;--panel:#152b1c;--panel2:#1c3524;--line:#27442f;--green:#3fae4f;--green2:#2b8a3b;--lime:#b8ef45;--muted:#8fa894}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:Outfit,sans-serif;color:#fff}
+#cam{position:absolute;inset:0}
+.full{position:absolute;inset:0}
+.sc{position:absolute;inset:0;overflow:hidden;display:none}
+.c{position:absolute;left:0;top:0;will-change:transform}
+.ch{display:inline-block;white-space:pre}
+.mask{display:block;overflow:hidden;padding:0 10px}
+#flash{background:#fff;opacity:0;pointer-events:none}
+#vig{background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(0,0,0,.42) 100%)}
+#grain{inset:-200px;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>")}
+
+/* ---------- scene 1 ---------- */
+#s1bg{background:radial-gradient(circle at 50% 42%,#173d20 0%,#0a1e0f 45%,#030904 100%)}
+#s1lime{background:linear-gradient(160deg,#a6e45a,#d2ef6e)}
+#s1dark{background:radial-gradient(circle at 50% 45%,#16391e 0%,#081a0c 60%,#020603 100%)}
+.big{font-weight:900;line-height:.86;letter-spacing:-4px;text-align:center;white-space:nowrap}
+.big .a{font-size:150px;font-weight:800;letter-spacing:6px}
+.big .b{font-size:250px}
+#t1 .b{color:var(--lime);text-shadow:0 0 60px rgba(184,239,69,.35)}
+#t2{color:#0b2412}
+#t2 .b{display:flex;align-items:center;justify-content:center;gap:10px}
+#clock{width:190px;height:190px;display:inline-block}
+#t3 .b{font-size:270px;display:flex;align-items:center;justify-content:center}
+#t3 .h{font-size:200px;color:var(--lime);position:relative;display:inline-block;letter-spacing:-2px}
+#oball{width:220px;height:220px;display:inline-block;margin-left:6px}
+#strike{position:absolute;left:-20px;right:-20px;top:50%;height:26px;margin-top:-6px;background:#fff;border-radius:13px;transform-origin:left center;box-shadow:0 0 30px rgba(255,255,255,.6)}
+#s1ring{width:300px;height:300px;border-radius:50%;border:16px solid var(--lime)}
+
+/* ---------- scene 2 / 8 shared poster world ---------- */
+.posterbg{background:linear-gradient(165deg,#8bd94e 0%,#a9e25c 45%,#cdea6c 100%)}
+.rays{inset:-600px;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.16) 0deg 7deg,transparent 7deg 22deg);mask-image:radial-gradient(circle,#000 0%,transparent 60%);-webkit-mask-image:radial-gradient(circle,#000 0%,transparent 60%)}
+.stalk{position:absolute;bottom:0;transform-origin:50% 100%;border-radius:18px 18px 0 0;box-shadow:inset -10px 0 18px rgba(0,40,0,.25)}
+.spray{position:absolute;width:300px;height:200px;transform-origin:0 50%}
+.burger{width:210px;height:80px;display:flex;flex-direction:column;justify-content:space-between}
+.burger i{display:block;height:16px;background:#fff;border-radius:2px}
+#badge{width:330px;height:330px}
+#logo{text-align:center}
+.lg{font-family:Bebas;font-size:270px;line-height:.82;color:#fff;text-shadow:0 10px 40px rgba(20,70,10,.35);letter-spacing:6px}
+#lgsub,#lg8sub{font-weight:700;font-size:40px;color:#0f3417;letter-spacing:.12em;margin-top:22px;white-space:nowrap}
+#tag{display:flex;gap:16px;padding:22px 38px;border-radius:999px;background:#0e2a15;box-shadow:0 24px 60px rgba(10,50,10,.35)}
+#tag span{font-weight:800;font-size:46px;letter-spacing:.02em;display:inline-block}
+#tag span:last-child{color:var(--lime)}
+
+/* ---------- steps ---------- */
+#pbg{background:radial-gradient(ellipse at 50% 60%,#16381f 0%,#0a1d0f 50%,#030a05 100%)}
+#courtWrap{perspective:900px}
+#courtPlane{position:absolute;left:-460px;top:1000px;width:2000px;height:2400px;transform-origin:50% 0;transform:rotateX(66deg)}
+#bokeh{opacity:.9}
+#num{width:1080px;height:640px;overflow:hidden}
+#numTrack div{height:640px;font-size:600px;font-weight:900;line-height:640px;text-align:center;color:transparent;-webkit-text-stroke:3px rgba(184,239,69,.22);letter-spacing:-20px}
+#head{width:1080px;text-align:center}
+#stepPill{display:inline-flex;gap:12px;align-items:center;padding:12px 26px;border-radius:999px;border:2px solid rgba(184,239,69,.6);color:var(--lime);font-weight:700;font-size:30px;letter-spacing:.2em}
+#stepPill b{display:inline-block;height:36px;overflow:hidden;vertical-align:top}
+#stepPill b span{display:block;height:36px;line-height:36px}
+#titles{position:relative;height:250px;margin-top:20px}
+.title{position:absolute;left:0;right:0;top:0;font-weight:900;font-size:122px;line-height:.98;letter-spacing:-3px}
+.title .mask{padding:0 20px}
+.title .w{display:inline-block}
+.title .l2{color:var(--lime)}
+#phoneWrap{width:620px;height:1250px;perspective:2400px}
+#phShadow{position:absolute;left:60px;right:60px;bottom:-60px;height:90px;border-radius:50%;background:rgba(0,0,0,.55);filter:blur(30px)}
+#phone{position:absolute;inset:0;border-radius:96px;background:linear-gradient(135deg,#5e6b62,#1d221f 18%,#0b0d0c 50%,#2a312c 82%,#68756c);padding:16px;box-shadow:0 40px 120px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.12);transform-style:preserve-3d}
+#screen{position:relative;width:588px;height:1218px;border-radius:82px;overflow:hidden;background:#0e1c12;font-family:Outfit}
+#glare{position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.10) 48%,rgba(255,255,255,.02) 56%,transparent 60%);pointer-events:none}
+.sb{position:absolute;top:0;left:0;right:0;height:80px}
+#island{position:absolute;left:206px;top:20px;width:176px;height:52px;border-radius:26px;background:#000}
+.app-h{position:absolute;left:36px;top:96px}
+.app-h .n{font-family:Bebas;font-size:54px;line-height:1;letter-spacing:2px}
+.app-h .s{font-size:15px;font-weight:700;letter-spacing:.32em;color:#6fcf5a;margin-top:4px}
+#toggle{position:absolute;right:36px;top:106px;width:92px;height:46px;border-radius:23px;background:#244a2d}
+#toggle i{position:absolute;right:5px;top:5px;width:36px;height:36px;border-radius:50%;background:#7f8a83}
+.divider{position:absolute;left:0;right:0;top:186px;height:2px;background:#1d3324}
+.stc{position:absolute;top:206px;width:54px;height:54px;margin-left:-27px;border-radius:50%;border:3px solid #3a5541;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;color:#b9c9bd;background:#0e1c12}
+.stl{position:absolute;top:268px;width:130px;margin-left:-65px;text-align:center;font-size:15px;font-weight:600;color:#6f8a76}
+.stline{position:absolute;top:232px;height:3px;background:#2a3f2f}
+.stline i{position:absolute;inset:0;background:var(--green);transform-origin:left;transform:scaleX(0)}
+#vp{position:absolute;left:0;top:308px;width:588px;height:760px;overflow:hidden}
+#track{position:absolute;left:0;top:0;height:760px;width:2352px}
+.pnl{position:absolute;top:0;width:588px;height:760px}
+.ph{position:absolute;left:36px;top:18px;display:flex;align-items:center;gap:14px;font-weight:700;font-size:23px;letter-spacing:.16em;color:#d9e6dc}
+.ph i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--lime),var(--green))}
+.card{position:absolute;left:30px;width:528px;border-radius:30px;background:#16291c;border:2px solid #24402c}
+.court .ic{position:absolute;left:26px;top:30px;width:86px;height:86px}
+.court .tt{position:absolute;left:134px;top:24px;font-family:Bebas;font-size:50px;letter-spacing:1px;line-height:1}
+.court .pr{position:absolute;left:134px;top:80px;font-weight:800;font-size:27px;color:var(--lime)}
+.court .tg{position:absolute;left:134px;top:124px;right:20px;display:flex;flex-wrap:wrap;gap:8px}
+.court .tg span{font-size:16px;font-weight:600;padding:6px 12px;border-radius:999px;background:#203a28;color:#b4c8b9}
+.avail{position:absolute;right:22px;bottom:20px;padding:8px 16px;border-radius:999px;background:#2f8f40;font-weight:700;font-size:17px}
+.chk{position:absolute;right:22px;top:22px;width:54px;height:54px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center}
+.field{position:absolute;left:30px;width:528px;height:76px;border-radius:20px;background:#13241a;border:2px solid #24402c;display:flex;align-items:center;gap:14px;padding:0 24px;font-size:25px;font-weight:600}
+.lbl{position:absolute;left:36px;font-size:16px;font-weight:700;letter-spacing:.16em;color:#8aa591}
+.caret{display:inline-block;width:3px;height:30px;background:var(--lime);margin-left:2px}
+.slot{position:absolute;width:162px;height:114px;border-radius:22px;background:#16291c;border:2px solid #24402c;text-align:center;padding-top:16px}
+.slot .a{font-weight:800;font-size:27px}
+.slot .b{font-size:17px;font-weight:600;color:#86a08c;margin-top:2px}
+.slot .p{font-size:15px;font-weight:700;color:#9fd38a;margin-top:6px;letter-spacing:.06em}
+.slot.bk{background:#2a1a1a;border-color:#4a2626}.slot.bk .p{color:#ff7a6b}
+.slot.dn{opacity:.4}.slot.dn .p{color:#9aa}
+.slot.nw{border-color:#4cb3ff}.slot.nw .p{color:#7cc8ff}
+.sel{position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(160deg,#58c463,#2f9a3e);border:2px solid var(--lime);text-align:center;padding-top:16px;color:#fff}
+.sel .b{color:#e6ffe0}.sel .p{color:#0f2a15}
+.srow{display:flex;align-items:center;gap:14px;font-size:22px;font-weight:600;margin-top:12px;color:#d6e3d9}
+.srow svg{flex:none}
+.btm{position:absolute;top:1080px;height:86px;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:28px}
+#bBack{left:30px;width:208px;background:#16291c;border:2px solid #24402c;color:#cfdcd2}
+#bNext{left:254px;width:304px;background:linear-gradient(160deg,#4cbf5c,#2b8a3b);box-shadow:0 14px 34px rgba(60,180,80,.35)}
+#bNext .lbls{position:relative;height:36px;overflow:hidden;width:250px;text-align:center}
+#bNext .lbls span{position:absolute;left:0;right:0;top:0;line-height:36px}
+#tap{position:absolute;left:0;top:0;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 0 30px rgba(255,255,255,.6)}
+#tapRing{position:absolute;left:0;top:0;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;border:5px solid #fff}
+#ok{position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#4cc35c,#24863a 70%,#1a6a2c);text-align:center}
+#okCheck{position:absolute;left:174px;top:260px;width:240px;height:240px}
+#okT{position:absolute;left:0;right:0;top:540px;font-weight:900;font-size:64px;line-height:1;letter-spacing:-1px}
+#okRef{position:absolute;left:94px;right:94px;top:700px;padding:16px;border-radius:18px;background:rgba(0,0,0,.22);font-family:monospace;font-weight:700;font-size:30px;letter-spacing:.1em;color:#eaffd6}
+#okS{position:absolute;left:0;right:0;top:800px;font-size:26px;font-weight:600;color:#e3f7de}
+#okD{position:absolute;left:70px;right:70px;top:880px;padding:24px;border-radius:24px;background:rgba(5,30,10,.28);text-align:left;font-size:22px;font-weight:600}
+#okD div{display:flex;justify-content:space-between;margin:6px 0}
+#okD span{color:#c4ecc0}
+.chip{display:flex;align-items:center;gap:16px;padding:20px 30px;border-radius:999px;background:rgba(16,36,22,.82);border:2px solid rgba(184,239,69,.5);font-weight:800;font-size:30px;letter-spacing:.05em;white-space:nowrap;box-shadow:0 22px 60px rgba(0,0,0,.45)}
+.chip .d{width:18px;height:18px;border-radius:50%;background:var(--lime);box-shadow:0 0 18px var(--lime)}
+#notif{width:900px;padding:26px 30px;border-radius:44px;background:rgba(245,250,246,.94);color:#0d1f12;display:flex;gap:24px;align-items:center;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+#notif .ic{width:96px;height:96px;border-radius:24px;background:linear-gradient(150deg,#2a7a35,#0e2a15);flex:none;display:flex;align-items:center;justify-content:center}
+#notif .t1{display:flex;justify-content:space-between;font-size:22px;font-weight:700;color:#4b5f50;letter-spacing:.08em}
+#notif .t2{font-size:31px;font-weight:800;margin-top:4px}
+#notif .t3{font-size:23px;font-weight:500;color:#33463a;margin-top:4px}
+#fx{position:absolute;inset:0}
+
+/* ---------- scene 7 ---------- */
+#s7bg{background:#050d07}
+.band{position:absolute;left:-150px;width:1380px;height:700px;overflow:hidden;border-top:8px solid var(--lime);border-bottom:8px solid var(--lime)}
+.band .photo{position:absolute;inset:-60px;background-size:cover}
+.band .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,20,8,.55),rgba(4,20,8,.82))}
+.band .bt{position:absolute;left:0;right:0;top:50%;text-align:center;font-weight:900;font-size:150px;letter-spacing:-3px;line-height:1;margin-top:-75px;white-space:nowrap}
+.band .bt .x{color:var(--lime)}
+#s7lime{background:linear-gradient(160deg,#a6e45a,#d2ef6e)}
+#jp{text-align:center;color:#0b2412}
+#jp div{font-weight:900;font-size:270px;line-height:.86;letter-spacing:-6px;white-space:nowrap}
+
+/* ---------- scene 8 ---------- */
+#sbp{display:flex;gap:26px;align-items:center;white-space:nowrap}
+#sbp span{font-weight:900;font-size:100px;letter-spacing:-2px;color:#fff;text-shadow:0 10px 30px rgba(20,70,10,.35);display:inline-block}
+#sbp span.pl{background:#0e2a15;color:var(--lime);padding:6px 26px 12px;border-radius:26px;text-shadow:none}
+#qrCard{width:760px;height:760px;border-radius:44px;background:#fff;box-shadow:0 40px 100px rgba(20,70,10,.4)}
+#qrDash{position:absolute;inset:22px}
+#qrGrid{position:absolute;left:105px;top:105px;width:550px;height:550px}
+#qrGrid i{position:absolute;width:22px;height:22px;background:#0b1c10;border-radius:4px}
+#qrGrid .fd{position:absolute;width:154px;height:154px;border:22px solid #0b1c10;border-radius:30px}
+#qrGrid .fd b{position:absolute;left:22px;top:22px;width:66px;height:66px;background:#0b1c10;border-radius:14px}
+#laser{position:absolute;left:60px;right:60px;height:8px;border-radius:4px;background:var(--lime);box-shadow:0 0 30px 8px rgba(184,239,69,.85)}
+#scanLbl{position:absolute;left:50%;top:-38px;padding:14px 34px;border-radius:999px;background:#0e2a15;color:var(--lime);font-weight:800;font-size:32px;letter-spacing:.24em;white-space:nowrap;transform:translateX(-50%)}
+.brk{position:absolute;width:110px;height:110px;border:14px solid #0e2a15}
+#url{display:flex;align-items:center;gap:20px;padding:24px 44px;border-radius:999px;background:#0e2a15;font-weight:800;font-size:56px;white-space:nowrap;box-shadow:0 24px 60px rgba(10,50,10,.35)}
+#url .go{width:62px;height:62px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center}
+#logo8{text-align:center}
+#logo8 .lg{font-size:150px;color:#0e2a15;text-shadow:0 6px 24px rgba(255,255,255,.35)}
+#lg8sub{font-size:28px;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="cam">
+
+<!-- ================= SCENE 1 : HOOK ================= -->
+<section class="sc" id="s1">
+  <div class="full" id="s1bg"></div>
+  <div class="full" id="s1lime"></div>
+  <div class="full" id="s1dark"></div>
+  <div class="c" id="s1ring"></div>
+  <div class="c big" id="t1"><div class="mask"><div class="a">YOUR</div></div><div class="mask"><div class="b">COURT.</div></div></div>
+  <div class="c big" id="t2"><div class="mask"><div class="a">YOUR</div></div><div class="mask"><div class="b"><span class="tw">TIME</span><span id="clock"></span></div></div></div>
+  <div class="c big" id="t3"><div class="mask" style="overflow:visible"><div class="b"><span class="tw">ZER</span><span id="oball"></span></div></div><div class="mask" style="overflow:visible"><div class="h"><span class="tw">HASSLE.</span><i id="strike"></i></div></div></div>
+  <div class="c" id="s1ball"></div>
+  <div class="c" id="zoomball"></div>
+</section>
+
+<!-- ================= SCENE 2 : BRAND ================= -->
+<section class="sc" id="s2">
+  <div class="full posterbg"></div>
+  <div class="c rays" id="rays2"></div>
+  <div class="full" id="bamboo2"></div>
+  <div class="c burger" id="bg2"><i></i><i></i><i></i></div>
+  <div class="c" id="badge"></div>
+  <div class="c" id="logo"><div class="lg" id="lg1">SMASH</div><div class="lg" id="lg2">GROVE</div><div id="lgsub">BAMBULO PICKLEYARD</div></div>
+  <div class="c" id="tag"><span>THE</span><span>FASTEST</span><span>WAY</span><span>TO</span><span>BOOK</span></div>
+  <div class="full" id="bambooFront2"></div>
+</section>
+
+<!-- ================= STEPS ================= -->
+<section class="sc" id="sP">
+  <div class="full" id="pbg"></div>
+  <div class="full" id="courtWrap"><div id="courtPlane"></div></div>
+  <canvas class="full" id="bokeh" width="1080" height="1920"></canvas>
+  <div class="c" id="num"><div id="numTrack"><div>01</div><div>02</div><div>03</div><div>04</div></div></div>
+  <div class="c" id="head">
+    <div id="stepPill">STEP <b><span>01</span><span>02</span><span>03</span><span>04</span></b></div>
+    <div id="titles">
+      <div class="title"><div class="mask"><span class="w">PICK</span> <span class="w">A</span></div><div class="mask l2"><span class="w">COURT</span></div></div>
+      <div class="title"><div class="mask"><span class="w">CHOOSE</span></div><div class="mask l2"><span class="w">YOUR</span> <span class="w">TIME</span></div></div>
+      <div class="title"><div class="mask"><span class="w">FILL</span> <span class="w">IN</span></div><div class="mask l2"><span class="w">DETAILS</span></div></div>
+      <div class="title"><div class="mask"><span class="w">GET</span></div><div class="mask l2"><span class="w">CONFIRMED!</span></div></div>
+    </div>
+  </div>
+  <div class="c" id="phoneWrap">
+    <div id="phShadow"></div>
+    <div id="phone"><div id="screen">
+      <div class="sb">
+        <div style="position:absolute;left:62px;top:26px;font-weight:700;font-size:27px">3:12</div>
+        <svg style="position:absolute;right:56px;top:30px" width="120" height="26" viewBox="0 0 120 26"><g fill="#fff"><rect x="0" y="16" width="6" height="8" rx="1"/><rect x="9" y="12" width="6" height="12" rx="1"/><rect x="18" y="7" width="6" height="17" rx="1"/><rect x="27" y="2" width="6" height="22" rx="1"/><path d="M58 22 l-5-5 a8 8 0 0 1 10 0z M49 13 a14 14 0 0 1 18 0 l-3 3 a10 10 0 0 0-12 0z M45 9 a20 20 0 0 1 26 0 l-3 3 a16 16 0 0 0-20 0z"/><rect x="80" y="3" width="34" height="20" rx="5" fill="none" stroke="#fff" stroke-width="2"/><rect x="83" y="6" width="24" height="14" rx="3"/><rect x="116" y="9" width="3" height="8" rx="1"/></g></svg>
+      </div>
+      <div id="island"></div>
+      <div class="app-h"><div class="n">SMASH GROVE</div><div class="s">BAMBULO PICKLEYARD</div></div>
+      <div id="toggle"><i></i></div>
+      <div class="divider"></div>
+      <div id="stepper"></div>
+      <div id="vp"><div id="track">
+        <!-- panel 1 -->
+        <div class="pnl" style="left:0">
+          <div class="ph"><i></i>SELECT A COURT</div>
+          <div class="card court" id="cc1" style="top:76px;height:236px"><svg class="ic" viewBox="0 0 86 86"></svg><div class="tt">SMASH COURT 1</div><div class="pr">₱150 – ₱250 / hr</div><div class="tg"><span>Outdoor</span><span>Air passing-through</span><span>Premium flooring</span></div><div class="avail">Available</div></div>
+          <div class="card court" id="cc2" style="top:338px;height:236px"><svg class="ic" viewBox="0 0 86 86"></svg><div class="tt">SMASH COURT 2</div><div class="pr">₱300 / hr</div><div class="tg"><span>Outdoor</span><span>Air passing-through</span><span>Premium flooring</span></div><div class="avail">Available</div><div class="chk" id="cc2chk"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M4 12.5l5 5 11-11" fill="none" stroke="#0e2a15" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div style="position:absolute;left:0;right:0;top:612px;text-align:center;font-size:20px;color:#6f8a76;font-weight:600">Tap a court to continue</div>
+        </div>
+        <!-- panel 2 -->
+        <div class="pnl" style="left:588px">
+          <div class="ph"><i></i>PICK A DATE &amp; TIME</div>
+          <div class="field" style="top:70px"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b8ef45" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Saturday, Oct 10, 2026<svg style="margin-left:auto" width="22" height="22" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="#8aa591" stroke-width="2.5"/></svg></div>
+          <div style="position:absolute;left:36px;top:166px;display:flex;align-items:center;gap:12px;font-size:21px;font-weight:700;color:var(--lime)"><i id="liveDot" style="width:16px;height:16px;border-radius:50%;background:#4ee06a;box-shadow:0 0 14px #4ee06a"></i>Live · <span id="slotCount">22</span> slots available</div>
+          <div style="position:absolute;right:36px;top:168px;font-size:18px;color:#7c9583;font-weight:600">Now: 3:12 PM</div>
+          <div id="grid"></div>
+        </div>
+        <!-- panel 3 -->
+        <div class="pnl" style="left:1176px">
+          <div class="ph"><i></i>YOUR DETAILS</div>
+          <div class="lbl" style="top:72px">FULL NAME</div><div class="field" id="f1" style="top:100px"><span class="tx"></span><i class="caret"></i></div>
+          <div class="lbl" style="top:196px">CONTACT NUMBER</div><div class="field" id="f2" style="top:224px"><span class="tx"></span><i class="caret"></i></div>
+          <div class="lbl" style="top:320px">EMAIL ADDRESS</div><div class="field" id="f3" style="top:348px"><span class="tx"></span><i class="caret"></i></div>
+          <div class="card" id="sumCard" style="top:452px;height:290px;padding:24px 28px">
+            <div style="font-size:16px;font-weight:700;letter-spacing:.18em;color:#8aa591">BOOKING SUMMARY</div>
+            <div class="srow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b8ef45" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16M3 12h18"/></svg>Smash Court 2</div>
+            <div class="srow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b8ef45" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Saturday, October 10, 2026</div>
+            <div class="srow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b8ef45" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>6:00 PM – 8:00 PM (2 hrs)</div>
+            <div class="srow" style="font-size:26px;font-weight:800"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b8ef45" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="3"/><circle cx="12" cy="12" r="3"/></svg>Total: <span style="color:var(--lime)" id="sumTotal">₱600.00</span></div>
+          </div>
+        </div>
+        <!-- panel 4 -->
+        <div class="pnl" style="left:1764px">
+          <div class="ph"><i></i>PAYMENT</div>
+          <div class="card" style="top:74px;height:330px;padding:28px 30px">
+            <div style="display:flex;justify-content:space-between;font-size:22px;font-weight:600;color:#a9bcae"><span>Total</span><span>₱600.00</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:22px;font-weight:600;color:#a9bcae;margin-top:12px"><span>Court · 2 hrs</span><span>Smash Court 2</span></div>
+            <div style="height:2px;background:#24402c;margin:22px 0"></div>
+            <div style="font-size:17px;font-weight:700;letter-spacing:.18em;color:#8aa591">DOWNPAYMENT (50%)</div>
+            <div style="font-weight:900;font-size:84px;color:var(--lime);line-height:1.1" id="dpAmt">₱300.00</div>
+          </div>
+          <div class="card" style="top:430px;height:120px;padding:22px 28px;display:flex;align-items:center;gap:18px">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#b8ef45" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <div><div style="font-size:22px;font-weight:700">Slot held for you</div><div style="font-size:19px;color:#8aa591;font-weight:600">Expires in <span id="hold">09:59</span></div></div>
+          </div>
+          <div style="position:absolute;left:0;right:0;top:590px;text-align:center;font-size:19px;color:#6f8a76;font-weight:600">Pay the downpayment to lock your slot</div>
+        </div>
+      </div></div>
+      <div class="btm" id="bBack"><span id="bBackL">Cancel</span></div>
+      <div class="btm" id="bNext"><div class="lbls"><span id="nx1">Next  →</span><span id="nx2">Pay &amp; Confirm</span></div></div>
+      <div id="ok">
+        <svg id="okCheck" viewBox="0 0 240 240"><circle cx="120" cy="120" r="108" fill="rgba(255,255,255,.16)" stroke="#fff" stroke-width="10" id="okC"/><path id="okP" d="M70 124 l34 34 l68 -72" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div id="okT">BOOKING<br>CONFIRMED</div>
+        <div id="okRef">PB-MMCAPD56-MBY7</div>
+        <div id="okS">See you on the court!</div>
+        <div id="okD"><div><span>Court</span>Smash Court 2</div><div><span>Date</span>Sat, Oct 10</div><div><span>Time</span>6:00 – 8:00 PM</div><div><span>Paid</span>₱300.00 ✓</div></div>
+      </div>
+      <div id="tapRing"></div><div id="tap"></div>
+      <div id="glare"></div>
+    </div></div>
+  </div>
+  <div class="c chip" id="ch0"><i class="d"></i>PREMIUM FLOORING</div>
+  <div class="c chip" id="ch1"><i class="d"></i>FROM ₱150 / HR</div>
+  <div class="c chip" id="ch2"><i class="d"></i>LIVE AVAILABILITY</div>
+  <div class="c chip" id="ch3"><i class="d"></i>NO DOUBLE BOOKINGS</div>
+  <div class="c chip" id="ch4"><i class="d"></i>TAKES SECONDS</div>
+  <div class="c chip" id="ch5"><i class="d"></i>AUTO SUMMARY</div>
+  <div class="c chip" id="ch6"><i class="d"></i>SLOT LOCKED IN</div>
+  <div class="c chip" id="ch7"><i class="d"></i>INSTANT EMAIL</div>
+  <div class="c" id="notif">
+    <div class="ic" id="notifIc"></div>
+    <div style="flex:1"><div class="t1"><span>SMASH GROVE · MAIL</span><span>now</span></div><div class="t2">Booking Confirmed ✓</div><div class="t3">Smash Court 2 · Sat, Oct 10 · 6–8 PM<br>Ref PB-MMCAPD56-MBY7 · ₱300 paid</div></div>
+  </div>
+</section>
+
+<!-- ================= SCENE 7 : MONTAGE ================= -->
+<section class="sc" id="s7">
+  <div class="full" id="s7bg"></div>
+  <div class="band" id="b0"><div class="photo" style="background-image:url(assets/p2.jpg);background-position:50% 52%"></div><div class="tint"></div><div class="bt"><span class="tw">NO <span class="x">CALLS.</span></span></div></div>
+  <div class="band" id="b1"><div class="photo" style="background-image:url(assets/p3.jpg);background-position:50% 48%"></div><div class="tint"></div><div class="bt"><span class="tw">NO <span class="x">WAITING.</span></span></div></div>
+  <div class="band" id="b2"><div class="photo" style="background-image:url(assets/p5.jpg);background-position:50% 55%"></div><div class="tint"></div><div class="bt"><span class="tw">JUST <span class="x">PLAY.</span></span></div></div>
+  <div class="full" id="s7lime"></div>
+  <div class="c" id="jp"><div class="mask" style="overflow:visible"><div class="j1">JUST</div></div><div class="mask" style="overflow:visible"><div class="j2">PLAY.</div></div></div>
+  <div class="c" id="s7ball"></div>
+</section>
+
+<!-- ================= SCENE 8 : END CARD ================= -->
+<section class="sc" id="s8">
+  <div class="full posterbg"></div>
+  <div class="c rays" id="rays8"></div>
+  <div class="full" id="bamboo8"></div>
+  <div class="c burger" id="bg8"><i></i><i></i><i></i></div>
+  <div class="c" id="sbp"><span>SCAN.</span><span>BOOK.</span><span class="pl">PLAY.</span></div>
+  <div class="c" id="qrCard">
+    <div id="scanLbl">SCAN TO BOOK</div>
+    <svg id="qrDash" viewBox="0 0 716 716"><rect x="6" y="6" width="704" height="704" rx="30" fill="none" stroke="#0b1c10" stroke-width="10" stroke-dasharray="44 20" id="dashR"/></svg>
+    <div id="qrGrid"></div>
+    <div id="laser"></div>
+  </div>
+  <div class="c" id="brks"><div class="brk" style="left:0;top:0;border-right:0;border-bottom:0;border-radius:40px 0 0 0"></div><div class="brk" style="right:0;top:0;border-left:0;border-bottom:0;border-radius:0 40px 0 0"></div><div class="brk" style="left:0;bottom:0;border-right:0;border-top:0;border-radius:0 0 0 40px"></div><div class="brk" style="right:0;bottom:0;border-left:0;border-top:0;border-radius:0 0 40px 0"></div></div>
+  <div class="c" id="url"><span id="urlT"></span><i class="caret" id="urlC" style="height:52px;width:5px"></i><div class="go"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="#0e2a15" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  <div class="c" id="logo8"><div class="lg" id="lg8">SMASH GROVE</div><div id="lg8sub">BAMBULO PICKLEYARD</div></div>
+  <div class="full" id="bambooFront8"></div>
+</section>
+
+<canvas class="full" id="confetti" width="1080" height="1920"></canvas>
+</div>
+<div class="full" id="vig"></div>
+<div class="full" id="flash"></div>
+<div class="full" id="grain"></div>
+</div>
+
+<script src="qr.js"></script>
+<script>
+/* =====================================================================
+   Deterministic motion engine: every visual is a pure function of t.
+   render(t) is called once per frame by the offline renderer.
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const L = (a, b, k) => a + (b - a) * k;
+const E = {
+  lin: x => x,
+  o2: x => 1 - (1 - x) * (1 - x),
+  o3: x => 1 - Math.pow(1 - x, 3),
+  o4: x => 1 - Math.pow(1 - x, 4),
+  i2: x => x * x,
+  i3: x => x * x * x,
+  io3: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  oX: x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x),
+  iX: x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10),
+  ioX: x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2,
+  oB: x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+  oB2: x => { const c1 = 2.8, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+  oEl: x => x <= 0 ? 0 : x >= 1 ? 1 : Math.pow(2, -9 * x) * Math.sin((x * 8 - .75) * (2 * Math.PI) / 3) + 1,
+};
+const P = (t, a, b, e = E.lin) => e(clamp((t - a) / (b - a)));
+function K(t, keys) {
+  if (t <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) {
+    if (t <= keys[i][0]) {
+      const [t0, v0] = keys[i - 1], [t1, v1, e] = keys[i];
+      return L(v0, v1, (e || E.io3)((t - t0) / (t1 - t0)));
+    }
+  }
+  return keys[keys.length - 1][1];
+}
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* centered transform: element's center goes to (x,y) */
+function T(el, o) {
+  let tr = `translate(${(o.x || 0).toFixed(2)}px,${(o.y || 0).toFixed(2)}px) translate(-50%,-50%)`;
+  if (o.rx || o.ry) tr += ` rotateX(${o.rx || 0}deg) rotateY(${o.ry || 0}deg)`;
+  if (o.r) tr += ` rotate(${o.r}deg)`;
+  const s = o.s ?? 1, sx = s * (o.sx ?? 1), sy = s * (o.sy ?? 1);
+  if (sx !== 1 || sy !== 1) tr += ` scale(${sx.toFixed(4)},${sy.toFixed(4)})`;
+  el.style.transform = tr;
+  el.style.opacity = o.o ?? 1;
+  el.style.filter = o.blur > .05 ? `blur(${o.blur.toFixed(2)}px)` : '';
+}
+/* free transform for in-flow elements */
+function F(el, tr, o = 1, blur = 0) {
+  el.style.transform = tr; el.style.opacity = o;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
+}
+const show = (el, on) => { el.style.display = on ? 'block' : 'none'; };
+function splitChars(el) {
+  const out = [];
+  const walk = node => {
+    [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        [...n.textContent].forEach(c => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; frag.appendChild(s); out.push(s); });
+        node.replaceChild(frag, n);
+      } else walk(n);
+    });
+  };
+  walk(el); return out;
+}
+
+/* ---------- SVG builders ---------- */
+let uid = 0;
+function ballSVG() {
+  const id = 'b' + (uid++);
+  let holes = '<circle cx="0" cy="0" r="5.5"/>';
+  for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; holes += `<circle cx="${(Math.cos(a) * 21).toFixed(2)}" cy="${(Math.sin(a) * 21).toFixed(2)}" r="5.2"/>`; }
+  for (let i = 0; i < 11; i++) { const a = i / 11 * Math.PI * 2 + .3; holes += `<circle cx="${(Math.cos(a) * 38).toFixed(2)}" cy="${(Math.sin(a) * 38).toFixed(2)}" r="4.8"/>`; }
+  return `<svg viewBox="-50 -50 100 100" width="100%" height="100%" style="overflow:visible">
+    <defs><radialGradient id="${id}g" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f6ff8a"/><stop offset=".55" stop-color="#d9f53a"/><stop offset="1" stop-color="#93b40f"/></radialGradient>
+    <clipPath id="${id}c"><circle r="47"/></clipPath></defs>
+    <circle r="47" fill="url(#${id}g)"/>
+    <g clip-path="url(#${id}c)"><g class="spin" fill="#7c9a0a" opacity=".85">${holes}</g></g>
+    <ellipse cx="-16" cy="-20" rx="16" ry="9" fill="#fff" opacity=".45" transform="rotate(-35 -16 -20)"/>
+    <circle r="47" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="2"/></svg>`;
+}
+function setSpin(el, deg) { const g = el.querySelector('.spin'); if (g) g.setAttribute('transform', `rotate(${deg.toFixed(1)})`); }
+const courtIcon = `<rect x="4" y="4" width="78" height="78" rx="18" fill="#203a28"/><rect x="16" y="14" width="54" height="58" rx="3" fill="#2f8f40" stroke="#e8ffe0" stroke-width="2.5"/><path d="M16 43h54M16 33h54M16 53h54M43 14v19M43 53v19" stroke="#e8ffe0" stroke-width="2"/><circle cx="58" cy="24" r="6" fill="#d9f53a"/>`;
+function leafSpray(scale, flip) {
+  const leaf = (a, l, w) => `<g transform="rotate(${a})"><path d="M0 0 C ${l * .25} ${-w}, ${l * .7} ${-w * .8}, ${l} 0 C ${l * .7} ${w * .8}, ${l * .25} ${w}, 0 0Z" fill="url(#lf)"/><path d="M4 0 L ${l * .95} 0" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/></g>`;
+  return `<svg width="${300 * scale}" height="${200 * scale}" viewBox="0 -100 300 200" style="overflow:visible;transform:scaleX(${flip ? -1 : 1})"><defs><linearGradient id="lf" x1="0" x2="1"><stop offset="0" stop-color="#3f9a22"/><stop offset=".6" stop-color="#8fdc45"/><stop offset="1" stop-color="#c9f06a"/></linearGradient></defs>
+  <path d="M0 0 Q 60 -6 120 -2" stroke="#3a7d1f" stroke-width="4" fill="none"/>${leaf(-28, 200, 26)}${leaf(8, 240, 30)}<g transform="translate(110 -2)">${leaf(-48, 170, 22)}${leaf(30, 180, 24)}</g></svg>`;
+}
+
+/* ---------- bamboo ---------- */
+function makeBamboo(container, defs) {
+  return defs.map(d => {
+    const el = document.createElement('div');
+    el.className = 'stalk';
+    const seg = d.seg || 210;
+    el.style.cssText += `left:${d.x}px;width:${d.w}px;height:${d.h}px;` +
+      `background:repeating-linear-gradient(180deg,transparent 0 ${seg - 14}px,rgba(25,70,12,.6) ${seg - 14}px ${seg - 6}px,rgba(230,255,170,.55) ${seg - 6}px ${seg}px),` +
+      `linear-gradient(90deg,${d.dark ? '#285f17,#4f9a2a 30%,#6cb83a 45%,#3e8a22 70%,#1d4a12' : '#2f7a1d,#6cc23a 28%,#a6e862 44%,#58b02e 70%,#24601a'});` +
+      (d.blur ? `filter:blur(${d.blur}px);` : '');
+    (d.sprays || []).forEach(s => {
+      const sp = document.createElement('div');
+      sp.className = 'spray';
+      sp.style.cssText = `top:${s.y}px;${s.flip ? 'right:' + (d.w / 2) + 'px;transform-origin:100% 50%;' : 'left:' + (d.w / 2) + 'px;'}`;
+      sp.innerHTML = leafSpray(s.s || 1, s.flip);
+      sp.dataset.base = s.r || 0;
+      el.appendChild(sp);
+    });
+    container.appendChild(el);
+    return { el, d, sprays: [...el.querySelectorAll('.spray')] };
+  });
+}
+function animBamboo(list, t, t0) {
+  list.forEach((b, i) => {
+    const d = b.d;
+    const g = P(t, t0 + (d.delay || 0), t0 + (d.delay || 0) + .9, E.o4);
+    const sway = Math.sin(t * 1.3 + i * 1.7) * (d.sway ?? 1.2);
+    b.el.style.transform = `translateY(${((1 - g) * (d.h + 200)).toFixed(1)}px) rotate(${(sway + (d.r || 0)).toFixed(2)}deg)`;
+    b.sprays.forEach((sp, j) => {
+      const base = +sp.dataset.base;
+      const pop = P(t, t0 + (d.delay || 0) + .35 + j * .08, t0 + (d.delay || 0) + .95 + j * .08, E.oB);
+      sp.style.transform = `rotate(${(base + Math.sin(t * 2.1 + i + j) * 4).toFixed(2)}deg) scale(${pop.toFixed(3)})`;
+    });
+  });
+}
+
+/* ---------- init ---------- */
+const S = {};
+function init() {
+  // balls
+  ['s1ball', 'oball', 'zoomball', 's7ball'].forEach(id => $(id).innerHTML = ballSVG());
+  $('s1ball').style.cssText += 'width:240px;height:240px';
+  $('zoomball').style.cssText += 'width:220px;height:220px';
+  $('s7ball').style.cssText += 'width:200px;height:200px';
+  $('clock').innerHTML = `<svg viewBox="-50 -50 100 100" width="100%" height="100%"><circle r="40" fill="none" stroke="#0b2412" stroke-width="12"/><line id="hh" x1="0" y1="0" x2="0" y2="-20" stroke="#0b2412" stroke-width="10" stroke-linecap="round"/><line id="mh" x1="0" y1="0" x2="0" y2="-30" stroke="#0b2412" stroke-width="8" stroke-linecap="round"/><circle r="7" fill="#0b2412"/></svg>`;
+
+  // char splits
+  S.t1a = splitChars($('t1').querySelector('.a')); S.t1b = splitChars($('t1').querySelector('.b'));
+  S.t2a = splitChars($('t2').querySelector('.a')); S.t2b = splitChars($('t2').querySelector('.tw'));
+  S.t3a = splitChars($('t3').querySelector('.b .tw')); S.t3b = splitChars($('t3').querySelector('.h .tw'));
+  S.lg1 = splitChars($('lg1')); S.lg2 = splitChars($('lg2'));
+  S.tag = [...$('tag').children];
+  S.titles = [...document.querySelectorAll('.title')].map(t => [...t.querySelectorAll('.w')]);
+  S.bt = [...document.querySelectorAll('.band .bt .tw')].map(splitChars);
+  S.j1 = splitChars($('jp').querySelector('.j1')); S.j2 = splitChars($('jp').querySelector('.j2'));
+  S.sbp = [...$('sbp').children];
+  S.lg8 = splitChars($('lg8'));
+
+  // badge (scene 2)
+  $('badge').innerHTML = `<svg viewBox="-170 -170 340 340" width="330" height="330" style="overflow:visible">
+    <circle r="160" fill="#0e2a15"/><circle id="bRing" r="146" fill="none" stroke="#b8ef45" stroke-width="8" stroke-dasharray="918" stroke-dashoffset="918" transform="rotate(-90)"/>
+    <g id="pdL"><rect x="-26" y="-130" width="52" height="150" rx="24" fill="#2f8f40" stroke="#fff" stroke-width="6"/><rect x="-10" y="16" width="20" height="70" rx="8" fill="#fff"/></g>
+    <g id="pdR"><rect x="-26" y="-130" width="52" height="150" rx="24" fill="#3fae4f" stroke="#fff" stroke-width="6"/><rect x="-10" y="16" width="20" height="70" rx="8" fill="#fff"/></g>
+    <g id="bBall" transform="translate(0 -62)"><g transform="scale(.62)">${ballSVG().replace(/<svg[^>]*>/, '').replace('</svg>', '')}</g></g></svg>`;
+  $('notifIc').innerHTML = `<div style="width:62px;height:62px">${ballSVG()}</div>`;
+
+  // bamboo worlds
+  const B2 = [
+    { x: 760, w: 70, h: 1500, dark: 1, blur: 3, delay: .15, sway: .8, sprays: [{ y: 260, flip: 1, r: 10, s: .8 }] },
+    { x: 220, w: 64, h: 1350, dark: 1, blur: 3, delay: .2, sway: .8, sprays: [{ y: 300, r: -10, s: .8 }] },
+    { x: -50, w: 130, h: 2100, delay: 0, sprays: [{ y: 520, r: -6 }, { y: 1100, r: 12, s: 1.2 }] },
+    { x: 95, w: 82, h: 1800, delay: .1, sprays: [{ y: 420, r: -14, s: .9 }] },
+    { x: 990, w: 140, h: 2050, delay: .05, sprays: [{ y: 640, flip: 1, r: 8, s: 1.2 }, { y: 1200, flip: 1, r: -8 }] },
+    { x: 890, w: 86, h: 1750, delay: .12, sprays: [{ y: 380, flip: 1, r: -4, s: .9 }] },
+  ];
+  S.bam2 = makeBamboo($('bamboo2'), B2);
+  S.bam8 = makeBamboo($('bamboo8'), B2.map(d => ({ ...d, delay: d.delay * .6 })));
+  // foreground leaves (out of focus) for depth
+  [['bambooFront2', 0], ['bambooFront8', 1]].forEach(([id, k]) => {
+    const f = $(id);
+    f.innerHTML = `<div class="c fl" style="filter:blur(6px)">${leafSpray(2.2, 0)}</div><div class="c fl" style="filter:blur(5px)">${leafSpray(1.8, 1)}</div>`;
+  });
+
+  // stepper
+  const st = $('stepper'); const xs = [72, 214, 356, 498]; const names = ['Court', 'Date & Time', 'Details', 'Payment'];
+  let h = '';
+  for (let i = 0; i < 3; i++) h += `<div class="stline" style="left:${xs[i] + 30}px;width:${xs[i + 1] - xs[i] - 60}px"><i></i></div>`;
+  xs.forEach((x, i) => h += `<div class="stc" style="left:${x}px">${i + 1}</div><div class="stl" style="left:${x}px">${names[i]}</div>`);
+  st.innerHTML = h;
+  S.stc = [...st.querySelectorAll('.stc')]; S.stl = [...st.querySelectorAll('.stl')]; S.stline = [...st.querySelectorAll('.stline i')];
+
+  document.querySelectorAll('.court .ic').forEach(s => s.innerHTML = courtIcon);
+
+  // slot grid
+  const times = ['2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM', '12:00 AM', '1:00 AM'];
+  const nexts = times.slice(1).concat(['2:00 AM']);
+  const state = { 0: 'dn', 1: 'nw', 3: 'bk', 6: 'bk' };
+  const tag = { dn: 'DONE', nw: 'NOW', bk: 'BOOKED' };
+  let g = '';
+  times.forEach((tm, i) => {
+    const x = 30 + (i % 3) * 176, y = 214 + Math.floor(i / 3) * 128;
+    const s = state[i] || '';
+    g += `<div class="slot ${s}" style="left:${x}px;top:${y}px"><div class="a">${tm}</div><div class="b">${nexts[i]}</div><div class="p">${tag[s] || '₱300'}</div>${(i === 4 || i === 5) ? `<div class="sel"><div class="a">${tm}</div><div class="b">${nexts[i]}</div><div class="p">SELECTED</div></div>` : ''}</div>`;
+  });
+  $('grid').innerHTML = g;
+  S.slots = [...document.querySelectorAll('.slot')];
+  S.sel = [...document.querySelectorAll('.slot .sel')];
+
+  // court plane (pickleball court lines, perspective floor)
+  const cw = 2000, chh = 2400;
+  $('courtPlane').innerHTML = `<svg width="${cw}" height="${chh}" viewBox="0 0 ${cw} ${chh}"><g fill="none" stroke="rgba(184,239,69,.22)" stroke-width="6">
+    <rect x="460" y="0" width="1080" height="2380"/><line x1="460" y1="1190" x2="1540" y2="1190" stroke-width="10"/><line x1="460" y1="840" x2="1540" y2="840"/><line x1="460" y1="1540" x2="1540" y2="1540"/><line x1="1000" y1="0" x2="1000" y2="840"/><line x1="1000" y1="1540" x2="1000" y2="2380"/></g>
+    <g stroke="rgba(184,239,69,.05)" stroke-width="2">${Array.from({ length: 21 }, (_, i) => `<line x1="${i * 100}" y1="0" x2="${i * 100}" y2="${chh}"/>`).join('')}</g></svg>`;
+
+  // QR
+  const q = window.QR, n = q.length, cell = 22, gEl = $('qrGrid');
+  const finder = (r, c) => (r < 7 && c < 7) || (r < 7 && c >= n - 7) || (r >= n - 7 && c < 7);
+  S.qr = [];
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+    if (!q[r][c] || finder(r, c)) continue;
+    const i = document.createElement('i'); i.style.left = c * cell + 'px'; i.style.top = r * cell + 'px';
+    gEl.appendChild(i);
+    S.qr.push({ el: i, d: Math.hypot(r - n / 2, c - n / 2) });
+  }
+  S.fd = [[0, 0], [0, n - 7], [n - 7, 0]].map(([r, c]) => {
+    const d = document.createElement('div'); d.className = 'fd'; d.style.left = c * cell + 'px'; d.style.top = r * cell + 'px'; d.innerHTML = '<b></b>';
+    gEl.appendChild(d); return d;
+  });
+
+  // bokeh particles
+  const R = rng(7);
+  S.bokeh = Array.from({ length: 34 }, () => ({ x: R() * 1080, y: R() * 1920, r: 6 + R() * 26, sp: 20 + R() * 60, a: .05 + R() * .18, ph: R() * 6 }));
+  // confetti
+  const R2 = rng(42);
+  S.conf = Array.from({ length: 170 }, () => {
+    const a = -Math.PI / 2 + (R2() - .5) * 2.6, v = 900 + R2() * 1700;
+    return { vx: Math.cos(a) * v, vy: Math.sin(a) * v, rot: R2() * 6, vr: (R2() - .5) * 18, w: 12 + R2() * 14, h: 20 + R2() * 18, c: ['#b8ef45', '#ffffff', '#3fae4f', '#e4ff3a', '#8be04e'][Math.floor(R2() * 5)], wob: R2() * 6 };
+  });
+  // measure zoom-ball origin (scene 1 "O")
+  T($('t3'), { x: 540, y: 960 });
+  $('s1').style.display = 'block';
+  const ob = $('oball').getBoundingClientRect();
+  S.obx = ob.left + ob.width / 2; S.oby = ob.top + ob.height / 2;
+  window.READY = true;
+}
+
+/* ---------- impacts drive camera shake + flash ---------- */
+const IMPACTS = [[.3, 34], [1.25, 14], [2.25, 14], [4.0, 22], [8.05, 10], [22.31, 30], [24.3, 16], [25.1, 16], [25.9, 18], [26.25, 22], [28.0, 26], [28.35, 10], [28.7, 12]];
+const FLASHES = [[.3, .95], [4.0, .85], [22.31, .55], [28.0, .9]];
+
+function render(t) {
+  // camera shake
+  let A = 0; IMPACTS.forEach(([ti, amp]) => { if (t >= ti) A += amp * Math.exp(-(t - ti) * 11); });
+  const sx = A * Math.sin(t * 93), sy = A * Math.cos(t * 71);
+  $('cam').style.transform = `translate(${sx.toFixed(2)}px,${sy.toFixed(2)}px)`;
+  let fl = 0; FLASHES.forEach(([ti, a]) => { if (t >= ti) fl = Math.max(fl, a * Math.exp(-(t - ti) * 9)); });
+  $('flash').style.opacity = fl.toFixed(3);
+  $('grain').style.transform = `translate(${(Math.floor(t * 30) * 37 % 200) - 100}px,${(Math.floor(t * 30) * 61 % 200) - 100}px)`;
+
+  scene1(t); scene2(t); steps(t); scene7(t); scene8(t); confetti(t);
+}
+
+/* =============================== SCENE 1 =============================== */
+function scene1(t) {
+  const on = t < 4.02; show($('s1'), on); if (!on) return;
+  if (t < 3.3) T($('zoomball'), { o: 0 });
+  // flying ball smash
+  const kb = P(t, 0, .3, E.i2);
+  T($('s1ball'), { x: L(120, 540, kb), y: L(2050, 900, kb), s: L(.4, 3.4, kb), r: kb * 400, o: t < .3 ? 1 : 0, blur: kb * 6 });
+  setSpin($('s1ball'), t * 900);
+  const kr = P(t, .3, .85, E.oX);
+  T($('s1ring'), { x: 540, y: 900, s: L(.2, 4.5, kr), o: t < .3 ? 0 : 1 - kr });
+  // T1: YOUR COURT.
+  const t1on = t >= .3 && t < 1.3;
+  $('t1').style.display = t1on ? 'block' : 'none';
+  if (t1on) {
+    const k = P(t, .3, .7, E.oX);
+    T($('t1'), { x: 540, y: 900, s: L(1.9, 1, k) * L(1, 1.06, P(t, .7, 1.3)), blur: (1 - k) * 18, o: P(t, .3, .38) });
+    S.t1b.forEach((c, i) => F(c, `translateY(${(L(40, 0, P(t, .32 + i * .02, .6 + i * .02, E.oX))).toFixed(1)}px)`));
+  }
+  // lime wipe
+  const kw = P(t, 1.12, 1.32, E.io3);
+  const yl = 100 - kw * 145;
+  $('s1lime').style.clipPath = `polygon(0 ${yl}%,100% ${yl + 45}%,100% 100%,0 100%)`;
+  $('s1lime').style.display = t >= 1.12 && t < 2.4 ? 'block' : 'none';
+  // T2: YOUR TIME
+  const t2on = t >= 1.22 && t < 2.35;
+  $('t2').style.display = t2on ? 'block' : 'none';
+  if (t2on) {
+    T($('t2'), { x: 540, y: 920, s: L(1, 1.05, P(t, 1.3, 2.3)) });
+    S.t2a.forEach((c, i) => F(c, `translateY(${(L(180, 0, P(t, 1.22 + i * .03, 1.55 + i * .03, E.oB))).toFixed(1)}px)`));
+    S.t2b.forEach((c, i) => F(c, `translateY(${(L(300, 0, P(t, 1.28 + i * .035, 1.65 + i * .035, E.oB))).toFixed(1)}px)`));
+    const kc = P(t, 1.35, 1.7, E.oB2);
+    F($('clock'), `scale(${kc.toFixed(3)}) rotate(${L(-120, 0, kc).toFixed(1)}deg)`);
+    const sp = P(t, 1.35, 2.2, E.oX);
+    $('hh').setAttribute('transform', `rotate(${(sp * 360).toFixed(1)})`);
+    $('mh').setAttribute('transform', `rotate(${(sp * 1440 + 120).toFixed(1)})`);
+  }
+  // dark wipe (from top)
+  const kd = P(t, 2.1, 2.3, E.io3);
+  const yd = kd * 145 - 45;
+  $('s1dark').style.clipPath = `polygon(0 0,100% 0,100% ${yd}%,0 ${yd + 45}%)`;
+  $('s1dark').style.display = t >= 2.1 ? 'block' : 'none';
+  // T3: ZERO HASSLE
+  const t3on = t >= 2.2;
+  $('t3').style.display = t3on ? 'block' : 'none';
+  if (t3on) {
+    const kz = P(t, 3.3, 4.0, E.iX);
+    T($('t3'), { x: 540, y: 960, s: L(1, 1.04, P(t, 2.3, 3.3)) * L(1, 2.4, kz), o: 1 - P(t, 3.55, 3.85) });
+    S.t3a.forEach((c, i) => F(c, `translateY(${L(-260, 0, P(t, 2.22 + i * .04, 2.55 + i * .04, E.oB)).toFixed(1)}px) rotate(${L(-25, 0, P(t, 2.22 + i * .04, 2.55 + i * .04, E.oB)).toFixed(1)}deg)`, P(t, 2.22 + i * .04, 2.3 + i * .04)));
+    const ko = P(t, 2.36, 2.7, E.oB2);
+    F($('oball'), `scale(${ko.toFixed(3)}) rotate(${(t * 220).toFixed(1)}deg)`, t < 3.3 ? 1 : 0);
+    S.t3b.forEach((c, i) => F(c, `translateY(${L(220, 0, P(t, 2.42 + i * .03, 2.75 + i * .03, E.oX)).toFixed(1)}px)`, P(t, 2.42 + i * .03, 2.5 + i * .03)));
+    F($('strike'), `scaleX(${P(t, 2.85, 3.1, E.o4).toFixed(3)}) rotate(-3deg)`);
+    // the ball becomes the portal into the brand world
+    const zb = $('zoomball');
+    if (t >= 3.3) {
+      const kk = P(t, 3.3, 4.0, E.iX);
+      const s1 = L(1, 1.04, P(t, 2.3, 3.3)) * L(1, 2.4, kk);
+      const bx = 540 + (S.obx - 540) * s1, by = 960 + (S.oby - 960) * s1;
+      T(zb, { x: L(bx, 540, kk), y: L(by, 960, kk), s: L(s1, 26, kk), r: t * 220 });
+    } else T(zb, { o: 0 });
+  }
+}
+
+/* =============================== SCENE 2 =============================== */
+function scene2(t) {
+  const on = t >= 3.98 && t < 8.1; show($('s2'), on); if (!on) return;
+  const zoomOut = P(t, 7.55, 8.1, E.iX);
+  $('s2').style.transform = `scale(${L(1, 1.35, zoomOut).toFixed(4)})`;
+  T($('rays2'), { x: 540, y: 760, r: t * 8, s: L(.6, 1, P(t, 4, 5, E.oX)) });
+  animBamboo(S.bam2, t, 4.0);
+  const fl = $('bambooFront2').querySelectorAll('.fl');
+  T(fl[0], { x: L(-300, 70, P(t, 4.0, 4.9, E.oX)), y: 1720, r: -30 + Math.sin(t * 1.8) * 4 });
+  T(fl[1], { x: L(1400, 1010, P(t, 4.1, 5.0, E.oX)), y: 230, r: 160 + Math.sin(t * 1.6) * 4 });
+  T($('bg2'), { x: 930, y: 120, o: P(t, 4.6, 4.9), sx: P(t, 4.6, 5.0, E.oX) });
+  // badge
+  const kb = P(t, 4.05, 4.55, E.oB2);
+  const fl2 = Math.sin(t * 2.2) * 8;
+  T($('badge'), { x: 540, y: 600 + fl2, s: kb, r: L(-90, 0, kb) });
+  $('bRing').setAttribute('stroke-dashoffset', (918 * (1 - P(t, 4.2, 4.9, E.o3))).toFixed(1));
+  const kp = P(t, 4.3, 4.75, E.oB);
+  $('pdL').setAttribute('transform', `rotate(${L(0, -32, kp).toFixed(1)}) translate(${L(0, -22, kp).toFixed(1)} 30)`);
+  $('pdR').setAttribute('transform', `rotate(${L(0, 32, kp).toFixed(1)}) translate(${L(0, 22, kp).toFixed(1)} 30)`);
+  const kbb = P(t, 4.45, 4.85, E.oB2);
+  $('bBall').setAttribute('transform', `translate(0 ${L(-300, -62, kbb).toFixed(1)}) rotate(${(t * 120).toFixed(1)})`);
+  // logo letters
+  T($('logo'), { x: 540, y: 1150 + fl2 * .6 });
+  S.lg1.forEach((c, i) => { const k = P(t, 4.95 + i * .045, 5.35 + i * .045, E.oB2); F(c, `translateY(${L(-320, 0, k).toFixed(1)}px) scale(${L(1.6, 1, k).toFixed(3)})`, P(t, 4.95 + i * .045, 5.02 + i * .045)); });
+  S.lg2.forEach((c, i) => { const k = P(t, 5.2 + i * .045, 5.6 + i * .045, E.oB2); F(c, `translateY(${L(320, 0, k).toFixed(1)}px) scale(${L(1.6, 1, k).toFixed(3)})`, P(t, 5.2 + i * .045, 5.27 + i * .045)); });
+  const ks = P(t, 5.55, 6.3, E.o3);
+  $('lgsub').style.letterSpacing = L(.02, .12, ks).toFixed(3) + 'em';
+  $('lgsub').style.opacity = P(t, 5.55, 5.8);
+  // tagline pill
+  const kt = P(t, 6.1, 6.45, E.oB);
+  T($('tag'), { x: 540, y: 1600 + fl2 * .4, s: kt, o: P(t, 6.1, 6.2) });
+  S.tag.forEach((w, i) => { const k = P(t, 6.2 + i * .14, 6.45 + i * .14, E.oB2); F(w, `translateY(${L(40, 0, k).toFixed(1)}px) scale(${L(.4, 1, k).toFixed(3)})`, P(t, 6.2 + i * .14, 6.28 + i * .14)); });
+}
+
+/* =============================== STEPS =============================== */
+const STEP_T = [8.0, 12.0, 16.0, 20.0];
+const TAPS = [[10.0, 300, 690], [11.3, 406, 1123], [13.4, 280, 704], [13.85, 456, 704], [15.3, 406, 1123], [19.3, 406, 1123], [21.55, 406, 1123]];
+const CHIPS = [ // id, in, out, x, y, side
+  [0, 8.9, 11.75, 250, 880], [1, 9.15, 11.75, 840, 1430],
+  [2, 12.5, 15.75, 830, 860], [3, 12.8, 15.75, 270, 1440],
+  [4, 16.6, 19.75, 250, 900], [5, 18.5, 19.75, 830, 1460],
+  [6, 20.6, 23.9, 230, 860], [7, 22.9, 23.9, 820, 1560]];
+function stepFloat(t) { // continuous step index
+  return K(t, [[11.78, 0], [12.22, 1, E.ioX], [15.78, 1], [16.22, 2, E.ioX], [19.78, 2], [20.22, 3, E.ioX]]);
+}
+function steps(t) {
+  const on = t >= 7.55 && t < 24.45; show($('sP'), on); if (!on) return;
+  // iris reveal from the badge
+  const ir = P(t, 7.55, 8.1, E.iX);
+  $('sP').style.clipPath = t < 8.1 ? `circle(${(ir * 1500).toFixed(0)}px at 540px 600px)` : 'none';
+  const exit = P(t, 23.95, 24.4, E.iX);
+  const sf = stepFloat(t);
+  const si = Math.round(sf);
+
+  // floor + bokeh
+  $('courtPlane').style.transform = `rotateX(66deg) translateY(${(-(t - 8) * 60 % 200).toFixed(1)}px)`;
+  const bc = $('bokeh').getContext('2d'); bc.clearRect(0, 0, 1080, 1920);
+  S.bokeh.forEach(b => {
+    const y = ((b.y - t * b.sp) % 1920 + 1920) % 1920;
+    bc.fillStyle = `rgba(184,239,69,${(b.a * (.6 + .4 * Math.sin(t * 2 + b.ph))).toFixed(3)})`;
+    bc.beginPath(); bc.arc(b.x + Math.sin(t + b.ph) * 20, y, b.r, 0, 7); bc.fill();
+  });
+
+  // big background number
+  T($('num'), { x: L(560, 600, P(t, 8, 24)), y: 1180, s: L(1.15, 1, P(t, 7.8, 8.6, E.oX)), o: P(t, 7.9, 8.3) * (1 - exit) });
+  $('numTrack').style.transform = `translateY(${(-sf * 640).toFixed(1)}px)`;
+
+  // headline
+  T($('head'), { x: 540, y: 300, o: 1 - exit, s: L(1, .9, exit) });
+  const pillIn = P(t, 8.05, 8.4, E.oB);
+  F($('stepPill'), `scale(${pillIn.toFixed(3)})`, pillIn);
+  $('stepPill').querySelector('b').firstElementChild.style.marginTop = (-sf * 36).toFixed(1) + 'px';
+  S.titles.forEach((words, i) => {
+    const tin = STEP_T[i] + (i === 0 ? .15 : -.05), tout = i < 3 ? STEP_T[i + 1] - .2 : 99;
+    words.forEach((w, j) => {
+      const kin = P(t, tin + j * .06, tin + .45 + j * .06, E.oX);
+      const kout = P(t, tout + j * .03, tout + .25 + j * .03, E.iX);
+      F(w, `translateY(${(L(130, 0, kin) - kout * 130).toFixed(1)}%)`, t < tin || t > tout + .4 ? 0 : 1);
+    });
+  });
+
+  // phone camera
+  const ent = P(t, 7.85, 8.75, E.oX);
+  const ry = K(t, [[8.6, -14], [11.75, -8], [12.25, 13, E.ioX], [15.75, 8], [16.25, -11, E.ioX], [19.75, -7], [20.25, 0, E.ioX]]);
+  const rx = K(t, [[8.6, 6], [19.75, 5], [20.25, 0, E.ioX]]);
+  const bump = 1 + .06 * Math.exp(-Math.max(0, t - 22.31) * 5) * (t > 22.31 ? Math.cos((t - 22.31) * 14) : 0);
+  const ps = L(.75, 1, ent) * K(t, [[19.8, 1], [20.3, 1.03, E.ioX]]) * bump * L(1, 2.6, exit);
+  const py = L(1900, 0, ent) + Math.sin(t * 1.6) * 8;
+  T($('phoneWrap'), { x: 540, y: 1175 + py, s: ps, o: 1 - P(t, 24.1, 24.4), blur: exit * 14 });
+  $('phone').style.transform = `rotateX(${(rx + L(55, 0, ent)).toFixed(2)}deg) rotateY(${(ry + L(-35, 0, ent)).toFixed(2)}deg)`;
+  $('glare').style.transform = `translateX(${(ry * 9).toFixed(1)}px)`;
+  $('phShadow').style.opacity = ent * .9;
+
+  // stepper
+  S.stc.forEach((c, i) => {
+    const done = P(sf, i - .5, i - .2);
+    c.style.background = done > .5 ? 'linear-gradient(160deg,#4cbf5c,#2b8a3b)' : '#0e1c12';
+    c.style.borderColor = done > .5 ? '#b8ef45' : '#3a5541';
+    c.style.color = done > .5 ? '#fff' : '#b9c9bd';
+    const pop = i === si ? 1 + .18 * Math.exp(-Math.max(0, t - STEP_T[i] - .05) * 6) : 1;
+    c.style.transform = `scale(${pop.toFixed(3)})`;
+    c.style.boxShadow = i === si ? '0 0 0 6px rgba(184,239,69,.18)' : 'none';
+    S.stl[i].style.color = done > .5 ? '#b8ef45' : '#6f8a76';
+  });
+  S.stline.forEach((l, i) => l.style.transform = `scaleX(${clamp(sf - i).toFixed(3)})`);
+  $('track').style.transform = `translateX(${(-sf * 588).toFixed(1)}px)`;
+  $('bBackL').textContent = sf < .5 ? '✕  Cancel' : '←  Back';
+  const kl = P(sf, 2.4, 2.9);
+  $('nx1').style.transform = `translateY(${(-kl * 40).toFixed(1)}px)`;
+  $('nx2').style.transform = `translateY(${((1 - kl) * 40).toFixed(1)}px)`;
+
+  // panel 1: court cards
+  ['cc1', 'cc2'].forEach((id, i) => {
+    const k = P(t, 8.55 + i * .15, 9.05 + i * .15, E.oX);
+    const sel = i === 1 ? P(t, 10.0, 10.25, E.oB2) : 0;
+    const press = i === 1 ? 1 - .05 * Math.exp(-Math.max(0, t - 10.0) * 14) * (t > 10 ? 1 : 0) : 1;
+    F($(id), `translateX(${L(560, 0, k).toFixed(1)}px) scale(${press.toFixed(3)})`, k);
+    if (i === 1) {
+      $(id).style.borderColor = sel > .5 ? '#b8ef45' : '#24402c';
+      $(id).style.background = sel > .5 ? '#1d3a25' : '#16291c';
+      $(id).style.boxShadow = sel > .5 ? '0 0 40px rgba(184,239,69,.28)' : 'none';
+      F($('cc2chk'), `scale(${sel.toFixed(3)})`, sel > 0 ? 1 : 0);
+    }
+  });
+  // panel 2: slots
+  S.slots.forEach((s, i) => {
+    const k = P(t, 12.05 + i * .035, 12.4 + i * .035, E.oB);
+    F(s, `scale(${L(.5, 1, k).toFixed(3)})`, P(t, 12.05 + i * .035, 12.15 + i * .035));
+  });
+  S.sel.forEach((s, i) => {
+    const ts = i === 0 ? 13.4 : 13.85;
+    const k = P(t, ts, ts + .3, E.oB2);
+    F(s, `scale(${L(.6, 1, k).toFixed(3)})`, t >= ts ? 1 : 0);
+  });
+  $('liveDot').style.transform = `scale(${(1 + .35 * Math.sin(t * 9)).toFixed(3)})`;
+  $('slotCount').textContent = t < 13.4 ? '22' : t < 13.85 ? '21' : '20';
+  // panel 3: typing
+  const typed = [['f1', 'John Doe', 16.35, 16.8], ['f2', '0917 123 4567', 16.9, 17.5], ['f3', 'johndoe@email.com', 17.6, 18.25]];
+  typed.forEach(([id, str, a, b], i) => {
+    const n = Math.floor(P(t, a, b) * str.length + .0001);
+    const f = $(id);
+    f.querySelector('.tx').textContent = str.slice(0, n);
+    const active = t >= a - .1 && (i === 2 ? t < 18.6 : t < typed[i + 1][2] - .1);
+    f.style.borderColor = active ? '#b8ef45' : '#24402c';
+    f.querySelector('.caret').style.opacity = active && (Math.floor(t * 4) % 2 === 0 || t < b) ? 1 : 0;
+  });
+  const ksum = P(t, 18.3, 18.75, E.oB);
+  F($('sumCard'), `translateY(${L(260, 0, ksum).toFixed(1)}px)`, P(t, 18.3, 18.45));
+  $('sumTotal').textContent = '₱' + Math.round(L(0, 600, P(t, 18.45, 18.95, E.o3))).toLocaleString('en-US') + '.00';
+  // panel 4: hold countdown
+  const hs = 599 - Math.floor(Math.max(0, t - 20));
+  $('hold').textContent = `0${Math.floor(hs / 60)}:${String(hs % 60).padStart(2, '0')}`;
+  // next button press feedback
+  const lastTap = TAPS.filter(tp => tp[2] > 1100 && t >= tp[0]).pop();
+  const bp = lastTap ? 1 - .06 * Math.exp(-(t - lastTap[0]) * 14) : 1;
+  $('bNext').style.transform = `scale(${bp.toFixed(3)})`;
+
+  // confirmation overlay
+  const ko = P(t, 21.65, 22.1, E.iX);
+  $('ok').style.display = t >= 21.65 ? 'block' : 'none';
+  $('ok').style.clipPath = `circle(${(ko * 1400).toFixed(0)}px at 406px 1123px)`;
+  const kc = P(t, 22.05, 22.35, E.oB2);
+  F($('okCheck'), `scale(${kc.toFixed(3)})`, kc > 0 ? 1 : 0);
+  const pth = $('okP'); const len = 160;
+  pth.style.strokeDasharray = len; pth.style.strokeDashoffset = (len * (1 - P(t, 22.2, 22.45, E.o3))).toFixed(1);
+  [['okT', 22.4], ['okRef', 22.55], ['okS', 22.65], ['okD', 22.75]].forEach(([id, a]) => {
+    const k = P(t, a, a + .4, E.oB); F($(id), `translateY(${L(60, 0, k).toFixed(1)}px)`, P(t, a, a + .12));
+  });
+
+  // tap indicator
+  let tp = null; TAPS.forEach(x => { if (t >= x[0] - .35 && t < x[0] + .45) tp = x; });
+  if (tp) {
+    const d = t - tp[0];
+    const a = d < 0 ? P(d, -.35, -.15) : 1 - P(d, .15, .45);
+    const s = d < 0 ? L(1.4, 1, P(d, -.35, -.05, E.o3)) : L(.8, 1, P(d, 0, .2, E.o3));
+    F($('tap'), `translate(${tp[1]}px,${tp[2]}px) scale(${s.toFixed(3)})`, (a * .85).toFixed(3));
+    const rk = P(d, 0, .45, E.oX);
+    F($('tapRing'), `translate(${tp[1]}px,${tp[2]}px) scale(${L(.6, 2.6, rk).toFixed(3)})`, d < 0 ? 0 : (1 - rk).toFixed(3));
+  } else { $('tap').style.opacity = 0; $('tapRing').style.opacity = 0; }
+
+  // chips
+  CHIPS.forEach(([i, a, b, x, y]) => {
+    const kin = P(t, a, a + .45, E.oB2), kout = P(t, b, b + .2, E.iX);
+    const el = $('ch' + i);
+    el.style.display = t >= a && t < b + .25 ? 'flex' : 'none';
+    T(el, { x: x + Math.sin(t * 1.4 + i) * 6, y: y + Math.cos(t * 1.7 + i) * 8, s: kin * (1 - kout), r: L(i % 2 ? 8 : -8, 0, kin) });
+  });
+
+  // notification drop-in
+  const kn = P(t, 22.85, 23.3, E.oB);
+  T($('notif'), { x: 540, y: L(-200, 640, kn), o: P(t, 22.85, 23), s: 1 - exit * .3 });
+  $('notif').style.display = t >= 22.85 ? 'flex' : 'none';
+}
+
+/* =============================== CONFETTI =============================== */
+function confetti(t) {
+  const cv = $('confetti'), cx = cv.getContext('2d');
+  cx.clearRect(0, 0, 1080, 1920);
+  const d = t - 22.31; if (d < 0 || d > 2.2) return;
+  S.conf.forEach(p => {
+    const drag = (1 - Math.exp(-d * 2.2)) / 2.2;
+    const x = 540 + p.vx * drag + Math.sin(d * 5 + p.wob) * 30;
+    const y = 1000 + p.vy * drag + 900 * d * d * .5;
+    cx.save(); cx.translate(x, y); cx.rotate(p.rot + p.vr * d);
+    cx.scale(1, Math.cos(d * 9 + p.wob));
+    cx.globalAlpha = 1 - P(d, 1.6, 2.2);
+    cx.fillStyle = p.c; cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    cx.restore();
+  });
+}
+
+/* =============================== SCENE 7 =============================== */
+function scene7(t) {
+  const on = t >= 23.95 && t < 28.0; show($('s7'), on); if (!on) return;
+  const ys = [330, 960, 1590], sides = [-1, 1, -1], wordT = [24.28, 25.08, 25.88];
+  ['b0', 'b1', 'b2'].forEach((id, i) => {
+    const el = $(id);
+    const kin = P(t, 23.95 + i * .09, 24.45 + i * .09, E.oX);
+    const kout = i < 2 ? P(t, 26.1 + i * .05, 26.4 + i * .05, E.iX) : 0;
+    el.style.top = (ys[i] - 350) + 'px';
+    F(el, `translateX(${(sides[i] * L(1500, 0, kin) - sides[i] * kout * 1500).toFixed(1)}px) rotate(-6deg)`);
+    el.querySelector('.photo').style.transform = `scale(${L(1.25, 1.05, P(t, 24, 26.3)).toFixed(4)}) translateX(${(sides[i] * (t - 24) * 18).toFixed(1)}px)`;
+    const active = t >= wordT[i];
+    el.querySelector('.tint').style.opacity = active ? L(1, .6, P(t, wordT[i], wordT[i] + .2)) : 1;
+    S.bt[i].forEach((c, j) => {
+      const k = P(t, wordT[i] + j * .025, wordT[i] + .3 + j * .025, E.oB2);
+      F(c, `translateY(${L(200, 0, k).toFixed(1)}px) scale(${L(1.8, 1, k).toFixed(3)})`, P(t, wordT[i] + j * .025, wordT[i] + .06 + j * .025));
+    });
+  });
+  // JUST PLAY takeover
+  const kl = P(t, 26.15, 26.45, E.io3);
+  $('s7lime').style.display = t >= 26.15 ? 'block' : 'none';
+  $('s7lime').style.clipPath = `inset(${L(1240, 0, kl).toFixed(0)}px 0 ${L(330, 0, kl).toFixed(0)}px 0)`;
+  const jpOn = t >= 26.2; $('jp').style.display = jpOn ? 'block' : 'none';
+  if (jpOn) {
+    T($('jp'), { x: 540, y: 1000, s: L(1, 1.06, P(t, 26.3, 27.6)) * L(1, 1.8, P(t, 27.5, 28.0, E.iX)), o: 1 - P(t, 27.7, 27.95) });
+    S.j1.forEach((c, j) => { const k = P(t, 26.22 + j * .04, 26.55 + j * .04, E.oB2); F(c, `translateY(${L(-300, 0, k).toFixed(1)}px)`, P(t, 26.22 + j * .04, 26.3 + j * .04)); });
+    S.j2.forEach((c, j) => {
+      const k = P(t, 26.3 + j * .04, 26.63 + j * .04, E.oB2);
+      // letters dip when the ball lands on them
+      let dip = 0; [[26.75, 0], [27.05, 2], [27.35, 4]].forEach(([lt, li]) => { if (Math.abs(li - j) <= 1 && t > lt) dip += 26 * Math.exp(-(t - lt) * 9) * (li === j ? 1 : .4); });
+      F(c, `translateY(${(L(300, 0, k) + dip).toFixed(1)}px)`, P(t, 26.3 + j * .04, 26.38 + j * .04));
+    });
+  }
+  // ball hops across PLAY. then flies into camera -> portal to end card
+  const b = $('s7ball'); setSpin(b, t * 500);
+  if (t >= 26.45) {
+    const hops = [[26.45, 1250, 700], [26.75, 230, 1000], [27.05, 520, 1000], [27.35, 830, 1000]];
+    let x, y, s = 1, sq = 1;
+    if (t < 27.35) {
+      let i = 0; while (i < hops.length - 2 && t >= hops[i + 1][0]) i++;
+      const [ta, xa, ya] = hops[i], [tb, xb, yb] = hops[i + 1];
+      const k = (t - ta) / (tb - ta);
+      x = L(xa, xb, k); y = L(ya, yb, k) - Math.sin(k * Math.PI) * 300;
+      const nearLand = Math.min(Math.abs(t - tb), Math.abs(t - ta));
+      sq = i > 0 || k > .5 ? 1 - .25 * Math.exp(-nearLand * 40) : 1;
+    } else {
+      const k = P(t, 27.35, 28.0, E.iX);
+      x = L(830, 540, P(t, 27.35, 27.9, E.io3)); y = L(1000, 1080, k) - Math.sin(P(t, 27.35, 27.7) * Math.PI) * 260 * (1 - k); s = L(1, 30, k);
+    }
+    T(b, { x, y: y - 120, s, sx: 1 / Math.sqrt(sq), sy: sq });
+  } else T(b, { o: 0 });
+}
+
+/* =============================== SCENE 8 =============================== */
+function scene8(t) {
+  const on = t >= 27.99; show($('s8'), on); if (!on) return;
+  T($('rays8'), { x: 540, y: 960, r: t * 8 });
+  animBamboo(S.bam8, t, 27.9);
+  const fl = $('bambooFront8').querySelectorAll('.fl');
+  T(fl[0], { x: L(-300, 60, P(t, 28.0, 28.9, E.oX)), y: 1780, r: -25 + Math.sin(t * 1.8) * 4 });
+  T(fl[1], { x: L(1400, 1030, P(t, 28.1, 29.0, E.oX)), y: 140, r: 160 + Math.sin(t * 1.6) * 4 });
+  T($('bg8'), { x: 930, y: 110, o: P(t, 28.4, 28.7), sx: P(t, 28.4, 28.8, E.oX) });
+  // SCAN. BOOK. PLAY.
+  T($('sbp'), { x: 540, y: 270 + Math.sin(t * 2) * 5 });
+  S.sbp.forEach((w, i) => {
+    const a = 28.0 + i * .35, k = P(t, a, a + .4, E.oB2);
+    F(w, `translateY(${L(-260, 0, k).toFixed(1)}px) scale(${L(1.7, 1, k).toFixed(3)}) rotate(${L(i % 2 ? 12 : -12, 0, k).toFixed(1)}deg)`, P(t, a, a + .08));
+  });
+  // QR card
+  const kq = P(t, 28.25, 28.75, E.oB);
+  const qy = 1010 + Math.sin(t * 1.7) * 6;
+  T($('qrCard'), { x: 540, y: L(1500, qy, kq), s: L(.6, 1, kq), r: L(10, 0, kq), o: P(t, 28.25, 28.35) });
+  $('dashR').setAttribute('stroke-dashoffset', (-t * 60).toFixed(1));
+  S.qr.forEach(m => { const a = 28.55 + m.d * .045; const k = P(t, a, a + .3, E.oB2); m.el.style.transform = `scale(${k.toFixed(3)})`; });
+  S.fd.forEach((d, i) => { const k = P(t, 28.5 + i * .08, 28.95 + i * .08, E.oB2); d.style.transform = `scale(${k.toFixed(3)}) rotate(${L(-180, 0, k).toFixed(1)}deg)`; });
+  const sweep = t < 31 ? P(t, 29.7, 30.7, E.io3) : P(t, 31.6, 32.6, E.io3);
+  const lsOn = (t > 29.7 && t < 30.75) || (t > 31.6 && t < 32.65);
+  $('laser').style.top = L(70, 680, sweep) + 'px';
+  $('laser').style.opacity = lsOn ? Math.sin(sweep * Math.PI) * .9 + .1 : 0;
+  F($('scanLbl'), `translateX(-50%) scale(${P(t, 28.9, 29.25, E.oB2).toFixed(3)})`);
+  const kbk = P(t, 29.1, 29.5, E.oB);
+  const pulse = 1 + .02 * Math.sin(t * 6);
+  T($('brks'), { x: 540, y: qy, s: L(1.35, 1, kbk) * pulse, o: kbk });
+  $('brks').style.width = '880px'; $('brks').style.height = '880px';
+  // URL typed
+  const ku = P(t, 29.4, 29.8, E.oB);
+  T($('url'), { x: 540, y: 1530, s: ku, o: P(t, 29.4, 29.5) });
+  const url = 'smashgrove.com', n = Math.floor(P(t, 29.65, 30.25) * url.length + .0001);
+  $('urlT').textContent = url.slice(0, n);
+  $('urlC').style.opacity = Math.floor(t * 3.5) % 2 === 0 || t < 30.3 ? 1 : 0;
+  // final logo
+  T($('logo8'), { x: 540, y: 1745 });
+  S.lg8.forEach((c, i) => { const k = P(t, 30.35 + i * .03, 30.75 + i * .03, E.oB2); F(c, `translateY(${L(160, 0, k).toFixed(1)}px)`, P(t, 30.35 + i * .03, 30.42 + i * .03)); });
+  const ks = P(t, 30.7, 31.4, E.o3);
+  $('lg8sub').style.letterSpacing = L(.02, .32, ks).toFixed(3) + 'em';
+  $('lg8sub').style.opacity = P(t, 30.7, 30.9);
+}
+
+document.fonts.ready.then(() => { init(); render(0); });
+</script>
+</body>
+</html>
