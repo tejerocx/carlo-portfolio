@@ -56,6 +56,31 @@ neural text-to-speech model that runs offline. The script uses only copy from th
 Rebuild: `python3 voiceover.py --model kokoro-v1.0.int8.onnx --voices voices-v1.0.bin [--voice af_heart]`,
 then `./mix-voiceover.sh`. Other voices to try: `af_bella`, `af_nicole`, `am_michael`, `bf_emma`.
 
+### Using an ElevenLabs voice instead
+
+`voiceover.py` has an ElevenLabs engine. It uses the same script and timing, and the same mix and mux step.
+
+1. Put your API key in the environment as `ELEVENLABS_API_KEY`. Keep it out of the code and the chat.
+   A key restricted to *Text to Speech* (plus *Voices: read* for `--list-voices`) is enough.
+2. If you run this in a sandbox with restricted networking, allow `api.elevenlabs.io`.
+3. Run:
+
+```bash
+python3 voiceover.py --engine elevenlabs --list-voices              # pick a voice_id
+python3 voiceover.py --engine elevenlabs --voice-id <voice_id>      # → out/voiceover.wav + out/captions.srt
+./mix-voiceover.sh                                                  # → out/*-voiceover.mp4 (both cuts)
+```
+
+- Uses the `with-timestamps` endpoint, so the captions are **word-accurate** (from ElevenLabs' character timings).
+- Each line is generated with its neighbours as `previous_text`/`next_text`, so the intonation flows across clips.
+- Responses are cached in `out/tts-cache/`. Re-running costs nothing unless the text, voice or settings change.
+- If a line runs long, it's regenerated faster (up to 1.15×). The run prints a ⚠ for any line that would still
+  overlap the next one; shorten that line or adjust its window in `SCRIPT`.
+- Options: `--el-model` (default `eleven_multilingual_v2`), `--stability` (0.5), `--style` (0.15).
+- Pronunciation: if the voice says *Anaya's* wrong, add a one-word respelling to `RESPELL`
+  (for example `{"Anaya's": "Ah-NAH-yuhz"}`). Captions still show the real spelling.
+- Cost: the full script is about 600 characters per take, plus any speed retries.
+
 ## Files
 
 - `index.html` + `showreel.js`: the animation. Serve the folder and open `index.html` (landscape) or
