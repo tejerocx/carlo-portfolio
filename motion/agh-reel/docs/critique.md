@@ -24,3 +24,17 @@ Worst three:
 Also: chips 40 -> 44 px, checklist 52 -> 60 px, zoom-through flash peak 0.95 -> 0.8, end-card block lowered 50 px.
 Checks failed: none. Sync: 24/38 hits within 20 ms. The misses are whooshes and swells, whose peaks are broad by design, plus hits stacked within 0.1 beat of a score impact.
 Verdict: ANOTHER ROUND
+
+## Round 3 (frames pulled from the encoded final.mp4)
+| hook | read | motion | variety | brand | sync | min |
+|  8   |  8   |   8    |    8    |   8   |  8   |  8  |
+
+Evidence: beat 0 opens mid-sweep on the brand ribbons. At phone size every headline, chip, checklist row and caption is readable inside the safe area. Each scene enters differently: rise, slam, whip, drop, card flip, pop, logo build. The shots are joined by four different transitions (ribbon wipe, zoom-through, card flip, ribbon wipe back to paper). Colours come from the logo art and the posters, with one display face (Montserrat) and one UI face (Inter). Sync: 25/38 hits within 20 ms (median 8.5 ms); the rest are broad whooshes/swells. Mix: −14.0 LUFS / −1.1 dBTP, and VO windows sit about 3 LU above the music-only windows.
+
+Remaining weakest three (not blocking):
+1. [beats 4-6] About 1 s between "GERMANY?" falling out and the "JOB OFFER" slam carries only the camera push.
+2. [beat 28] The warm zoom-through flash peaks at 80% for about 0.3 s. It works in motion but is the one near-blank frame.
+3. [beats 55.5-57.5] The end card builds for about 2 s before "AGH" lands. The logo could start 0.5 beat earlier.
+
+Checks failed: none. Longest gap without a new event: beats 4.0-6.1 (1.05 s).
+Verdict: READY
