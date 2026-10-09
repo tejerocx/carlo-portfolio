@@ -26,3 +26,12 @@ Remaining weakest three:
 
 Checks failed: none.
 Verdict: ANOTHER ROUND (round 3 is reviewed on frames pulled from the encoded file)
+
+## Round 3 (frames pulled from the encoded final.mp4)
+| hook | read | motion | variety | brand | sync | min |
+|  9   |  8   |   9    |    9    |   8   |  8   |  8  |
+
+Fixed from round 2: the photo inside "SKILLS." is brightened (1.45x → 1.0x through the punch-in, so it hands off seamlessly to the Cologne plate). Ribbons rise while the node iris is still opening, so there's no blank paper. Route thumbnails are now 136 px.
+Encode: 33.75 s, 1080x1920, 60 fps, yuv420p, AAC stereo; −14.1 LUFS / −1.2 dBTP. Sync: 32/52 hits within 20 ms; the rest are broad whooshes and typing beds.
+Checks failed: none.
+Verdict: READY
