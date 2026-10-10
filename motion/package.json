@@ -1,15 +1,22 @@
 {
-  "name": "motion",
+  "name": "agh-motion",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "AGH German Pathway showreels: canvas films rendered locally",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup": "npx playwright install chromium",
+    "preview:1": "node tools/preview.mjs agh-reel",
+    "preview:2": "node tools/preview.mjs agh-reel-2",
+    "render:1": "node tools/render.mjs --film agh-reel --format 9x16",
+    "render:2": "node tools/render.mjs --film agh-reel-2 --format 9x16",
+    "draft:1": "node tools/render.mjs --film agh-reel --format 9x16 --fps 30 --noblur",
+    "draft:2": "node tools/render.mjs --film agh-reel-2 --format 9x16 --fps 30 --noblur",
+    "still:2": "node tools/render.mjs --film agh-reel-2 --format 9x16 --at 1,10,20,30"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "playwright": "^1.56.1"
-  }
+  },
+  "private": true
 }

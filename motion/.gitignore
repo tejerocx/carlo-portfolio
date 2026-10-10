@@ -8,11 +8,9 @@ out/**/hits.json
 out/**/sync.png
 agh-reel/audio/music.wav
 agh-reel/audio/sfx.wav
-agh-reel/audio/mix.wav
 agh-reel/audio/vo.wav
 agh-reel/assets/plates/*_mask*.png
 out/**/frames_*/
 */audio/music.wav
 */audio/sfx.wav
-*/audio/mix.wav
 */audio/vo.wav
